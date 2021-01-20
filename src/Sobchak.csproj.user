@@ -7,7 +7,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainWindow.xaml">
+    <Page Update="SobchakMain.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

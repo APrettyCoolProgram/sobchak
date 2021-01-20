@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "FOiNQRg+cA0N+ZE7bKHlKbIanUjhEfhcOsOEU5Jesa1wPBkt6ntYzJU07ahwjkox9PyRKhS/zPQgbqVB/8DLfA==",
+  "dgSpecHash": "AHkvR/k076/cF8vllsjljPcGq9r5rp7ZONaE3c9t96FBoKRCHaY0zzO5oZ0IIwcOFnzKqYf2EV379qLcrLV21A==",
   "success": true,
   "projectFilePath": "D:\\GitHub\\aprettycoolprogram\\sobchak\\src\\Sobchak.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\cbanw\\.nuget\\packages\\ookii.dialogs.wpf\\3.1.0\\ookii.dialogs.wpf.3.1.0.nupkg.sha512"
+  ],
   "logs": []
 }

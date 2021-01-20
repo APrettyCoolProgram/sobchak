@@ -1,0 +1,20 @@
+﻿<!--
+    PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
+    FILE: SobchakMain.xaml
+    UPDATED: 1-20-2021-9:02 AM
+    LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
+    Copyright 2020 A Pretty Cool Program All rights reserved
+-->
+
+<Window x:Class="Sobchak.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Sobchak"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="MainWindow"
+        Width="800"
+        Height="450"
+        mc:Ignorable="d">
+    <Grid />
+</Window>
