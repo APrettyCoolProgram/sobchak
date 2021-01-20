@@ -9,9 +9,7 @@ using System.Windows;
 
 namespace Sobchak
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /// <summary></summary>
     public partial class MainWindow : Window
     {
         public MainWindow()

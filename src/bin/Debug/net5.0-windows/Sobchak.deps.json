@@ -6,9 +6,9 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v5.0": {
-      "Sobchak/1.0.0": {
+      "Sobchak/0.0.0.0": {
         "dependencies": {
-          "Du": "0.0.0"
+          "Du": "0.3.0"
         },
         "runtime": {
           "Sobchak.dll": {}
@@ -22,7 +22,7 @@
           }
         }
       },
-      "Du/0.0.0": {
+      "Du/0.3.0": {
         "dependencies": {
           "Ookii.Dialogs.Wpf": "3.1.0"
         },
@@ -33,7 +33,7 @@
     }
   },
   "libraries": {
-    "Sobchak/1.0.0": {
+    "Sobchak/0.0.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -45,7 +45,7 @@
       "path": "ookii.dialogs.wpf/3.1.0",
       "hashPath": "ookii.dialogs.wpf.3.1.0.nupkg.sha512"
     },
-    "Du/0.0.0": {
+    "Du/0.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

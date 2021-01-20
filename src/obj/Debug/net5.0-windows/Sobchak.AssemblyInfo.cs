@@ -13,11 +13,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sobchak")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("0.1.21020.1411")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("0.2.21020.1546")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.0.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sobchak")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sobchak")]
-[assembly: System.Reflection.AssemblyVersionAttribute("0.1.21020.1411")]
+[assembly: System.Reflection.AssemblyVersionAttribute("0.2.21020.1546")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

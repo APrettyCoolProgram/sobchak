@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\GitHub\\aprettycoolprogram\\du\\src\\Du.csproj": {
-      "version": "0.0.0",
+      "version": "0.3.0",
       "restore": {
         "projectUniqueName": "D:\\GitHub\\aprettycoolprogram\\du\\src\\Du.csproj",
         "projectName": "Du",
@@ -71,7 +71,7 @@
       }
     },
     "D:\\GitHub\\aprettycoolprogram\\sobchak\\src\\Sobchak.csproj": {
-      "version": "1.0.0",
+      "version": "0.0.0",
       "restore": {
         "projectUniqueName": "D:\\GitHub\\aprettycoolprogram\\sobchak\\src\\Sobchak.csproj",
         "projectName": "Sobchak",

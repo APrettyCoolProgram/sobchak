@@ -14,7 +14,7 @@
           "Microsoft.WindowsDesktop.App"
         ]
       },
-      "Du/0.0.0": {
+      "Du/0.3.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -55,7 +55,7 @@
         "ookii.dialogs.wpf.nuspec"
       ]
     },
-    "Du/0.0.0": {
+    "Du/0.3.0": {
       "type": "project",
       "path": "../../du/src/Du.csproj",
       "msbuildProject": "../../du/src/Du.csproj"
@@ -63,14 +63,14 @@
   },
   "projectFileDependencyGroups": {
     "net5.0-windows7.0": [
-      "Du >= 0.0.0"
+      "Du >= 0.3.0"
     ]
   },
   "packageFolders": {
     "C:\\Users\\cbanw\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "0.0.0",
     "restore": {
       "projectUniqueName": "D:\\GitHub\\aprettycoolprogram\\sobchak\\src\\Sobchak.csproj",
       "projectName": "Sobchak",
