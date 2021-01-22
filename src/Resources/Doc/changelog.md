@@ -3,6 +3,14 @@
 ## Version 0.2 - January 19, 2021
 > Basic UI
 
+#### v0.2.21022.1812 (2021-01-22)
+* `ADDED` Sobchak version number in title bar
+* `ADDED` Resources/Dev/
+* `ADDED` Coolors information for development
+* `MODIFIED` Sobchak logo now loads dynamically
+* `MODIFIED` Sobchak logo colors updated
+* `MODIFIED` Minor UI changes
+
 #### v0.2.21020.1546 (2021-01-21)
 * `ADDED` Sobchak logo
 
