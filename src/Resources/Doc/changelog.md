@@ -3,6 +3,10 @@
 ## Version 0.2 - January 19, 2021
 > Basic UI
 
+#### v0.2.21025.1852 (2021-01-25)
+* `MODIFIED` Cleaned up SobchakMain.xaml
+* `MODIFIED` Minor UI changes
+
 #### v0.2.21025.1703 (2021-01-25)
 * `ADDED` .xaml licence header to sobchak.licenseheader
 * `MODIFIED` Coolors information for development

@@ -1,7 +1,7 @@
 ﻿<!--
     PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
     FILE: SobchakMain.xaml
-    UPDATED: 1-25-2021-12:03 PM
+    UPDATED: 1-25-2021-1:51 PM
     LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
     Copyright 2020 A Pretty Cool Program All rights reserved
 -->
@@ -13,7 +13,7 @@
         xmlns:local="clr-namespace:Sobchak"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Name="winSobchakMain"
-        Title="Sobchak vx.x"
+        Title="Sobchak vX.X.X.X"
         Width="800"
         Height="500"
         ResizeMode="NoResize"
@@ -27,7 +27,7 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <!--  LOGO -->
+        <!--  LOGO  -->
         <DockPanel x:Name="dpnlLogo"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center">
@@ -38,15 +38,16 @@
         </DockPanel>
 
         <!--  SOURCE  -->
-        <Border x:Name="brdrSource"
+        <Border x:Name="brdrSourceWidget"
                 Grid.Row="1"
                 Height="117"
                 Margin="10,0,10,0"
                 BorderBrush="#996600"
                 BorderThickness="1"
                 CornerRadius="5">
-            <WrapPanel x:Name="spnlSource">
-                <Border Height="107"
+            <WrapPanel x:Name="wpnlSourceWidget">
+                <Border x:Name="brdrSourceLabel"
+                        Height="107"
                         Margin="4"
                         Background="#FFD685"
                         BorderBrush="#996600"
@@ -59,6 +60,7 @@
                              HorizontalAlignment="Center"
                              VerticalAlignment="Top"
                              HorizontalContentAlignment="Center"
+                             VerticalContentAlignment="Center"
                              Background="#FFD685"
                              BorderThickness="0"
                              FontFamily="Consolas"
@@ -69,7 +71,7 @@
                              TextAlignment="Center"
                              TextWrapping="wrap" />
                 </Border>
-                <StackPanel x:Name="wpnlSourcePath"
+                <StackPanel x:Name="spnlSourcePath"
                             Margin="5,5,5,0">
                     <Label x:Name="lblSourcePath"
                            Width="40"
@@ -80,37 +82,79 @@
                            Foreground="#996600" />
                     <TextBox x:Name="txbxSourcePath"
                              Width="720"
-                             Height="24"
+
                              Margin="10,1,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"
                              VerticalContentAlignment="Center"
                              FontSize="10"
-                             Text="C:\Users\cbanw\Downloads\steam\The Haunted Island a Frog Detective 0102"
+                             Text="path\to\folder\"
                              TextWrapping="Wrap" />
                     <Button x:Name="btnChooseSourcePath"
-                            Width="50"
-                            Height="24"
+                            Width="60"
                             Margin="0,5,0,0"
+                            BorderBrush="#996600"
+                            BorderThickness="1"
                             HorizontalAlignment="Right"
-                            Content="Choose" />
+                            Background="#00A6A6"
+                            Content="Choose"
+                            Foreground="#F2F7F2">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="2" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                 </StackPanel>
-                <WrapPanel x:Name="wpnlSourceOptions"
-                           Margin="5,5,5,0" />
             </WrapPanel>
         </Border>
 
         <!--  FEEDBACK  -->
-        <Border Grid.Row="2"
-                Background="AliceBlue">
+        <Border x:Name="brdrFeebackWidget"
+                Grid.Row="2"
+                Margin="10,5,10,5"
+                BorderBrush="Gray"
+                BorderThickness="0">
+            <DockPanel>
+                <Border x:Name="brdrFeedbackVisuals"
+                        Width="350"
+                        BorderThickness="0"
+                        DockPanel.Dock="Left" />
+                <Border x:Name="brdr"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="5"
+                        DockPanel.Dock="Left">
+                    <TextBlock x:Name="txbkFeedback"
+                               Width="350"
+                               Padding="3"
+                               HorizontalAlignment="Left"
+                               DockPanel.Dock="Right"
+                               Text="TextBlock"
+                               TextWrapping="Wrap" />
+                </Border>
+            </DockPanel>
         </Border>
 
         <!--  BUTTON  -->
-        <Border Grid.Row="3"
-                Background="RosyBrown">
-            <Button HorizontalAlignment="Center"
+        <Border x:Name="brdrGoButtonWidget"
+                Grid.Row="3"
+                BorderThickness="0">
+            <Button x:Name="btnGo"
+                    Width="60"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="Button" />
+                    Background="#00A6A6"
+                    BorderBrush="#996600"
+                    BorderThickness="1"
+                    Content="Go"
+                    Foreground="#F2F7F2">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="2" />
+                    </Style>
+                </Button.Resources>
+            </Button>
         </Border>
     </Grid>
 </Window>
