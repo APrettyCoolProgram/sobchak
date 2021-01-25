@@ -1,7 +1,7 @@
 ﻿<!--
     PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
     FILE: SobchakMain.xaml
-    UPDATED: 1-20-2021-9:02 AM
+    UPDATED: 1-25-2021-12:03 PM
     LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
     Copyright 2020 A Pretty Cool Program All rights reserved
 -->
@@ -13,7 +13,7 @@
         xmlns:local="clr-namespace:Sobchak"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Name="winSobchakMain"
-        Title="Sobchak vX.X.X.X"
+        Title="Sobchak vx.x"
         Width="800"
         Height="500"
         ResizeMode="NoResize"
@@ -21,13 +21,13 @@
         mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="150" />
-            <RowDefinition Height="150" />
+            <RowDefinition Height="120" />
+            <RowDefinition Height="125" />
+            <RowDefinition Height="175" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <!--  LOGO  -->
+        <!--  LOGO -->
         <DockPanel x:Name="dpnlLogo"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center">
@@ -40,37 +40,46 @@
         <!--  SOURCE  -->
         <Border x:Name="brdrSource"
                 Grid.Row="1"
-                Height="140"
+                Height="117"
                 Margin="10,0,10,0"
                 BorderBrush="#996600"
                 BorderThickness="1"
                 CornerRadius="5">
-            <StackPanel x:Name="spnlSource">
-                <Border Height="30"
-                        Margin="3"
-                        Background="#F2F7F2"
+            <WrapPanel x:Name="spnlSource">
+                <Border Height="107"
+                        Margin="4"
+                        Background="#FFD685"
                         BorderBrush="#996600"
                         BorderThickness="1"
-                        CornerRadius="5">
-                    <Label x:Name="lblSource"
-                           Margin="1"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Top"
-                           HorizontalContentAlignment="Center"
-                           Content="SOURCE"
-                           FontWeight="Bold"
-                           Foreground="#996600" />
+                        CornerRadius="3">
+                    <TextBox x:Name="lblSource"
+                             Width="15"
+                             Height="104"
+                             Margin="1"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Top"
+                             HorizontalContentAlignment="Center"
+                             Background="#FFD685"
+                             BorderThickness="0"
+                             FontFamily="Consolas"
+                             FontSize="14"
+                             FontWeight="Bold"
+                             Foreground="#996600"
+                             Text="SOURCE"
+                             TextAlignment="Center"
+                             TextWrapping="wrap" />
                 </Border>
-                <WrapPanel x:Name="wpnlSourcePath"
-                           Margin="5,5,5,0">
+                <StackPanel x:Name="wpnlSourcePath"
+                            Margin="5,5,5,0">
                     <Label x:Name="lblSourcePath"
-                           Width="60"
+                           Width="40"
                            Margin="6,0,0,0"
-                           HorizontalContentAlignment="Right"
+                           HorizontalAlignment="Left"
+                           HorizontalContentAlignment="Left"
                            Content="Path"
                            Foreground="#996600" />
                     <TextBox x:Name="txbxSourcePath"
-                             Width="600"
+                             Width="720"
                              Height="24"
                              Margin="10,1,0,0"
                              HorizontalAlignment="Left"
@@ -80,84 +89,28 @@
                              Text="C:\Users\cbanw\Downloads\steam\The Haunted Island a Frog Detective 0102"
                              TextWrapping="Wrap" />
                     <Button x:Name="btnChooseSourcePath"
+                            Width="50"
                             Height="24"
-                            Margin="10,0,0,0"
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Right"
                             Content="Choose" />
-                </WrapPanel>
+                </StackPanel>
                 <WrapPanel x:Name="wpnlSourceOptions"
-                           Margin="5,5,5,0">
-                    <Label x:Name="lblSourceOptions"
-                           Width="60"
-                           Margin="6,0,0,0"
-                           HorizontalContentAlignment="Right"
-                           Content="Options"
-                           Foreground="#996600" />
-                </WrapPanel>
-            </StackPanel>
+                           Margin="5,5,5,0" />
+            </WrapPanel>
         </Border>
 
-        <!--  DESTINATION  -->
-        <Border x:Name="brdrDestination"
-                Grid.Row="2"
-                Height="140"
-                Margin="10,0,10,0"
-                BorderBrush="#996600"
-                BorderThickness="1"
-                CornerRadius="5">
-            <StackPanel x:Name="spnlDestination">
-                <Border Height="30"
-                        Margin="3"
-                        Background="#F2F7F2"
-                        BorderBrush="#996600"
-                        BorderThickness="1"
-                        CornerRadius="5">
-                    <Label x:Name="lblDestrination"
-                           Margin="1"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Top"
-                           HorizontalContentAlignment="Center"
-                           Content="DESTINATION"
-                           FontWeight="Bold"
-                           Foreground="#996600" />
-                </Border>
-                <WrapPanel x:Name="wpnlDestinationPath"
-                           Margin="5,5,5,0">
-                    <Label x:Name="lblDestinationPath"
-                           Width="60"
-                           Margin="6,0,0,0"
-                           HorizontalContentAlignment="Right"
-                           Content="Path"
-                           Foreground="#996600" />
-                    <TextBox x:Name="txbxDestinationPath"
-                             Width="600"
-                             Height="24"
-                             Margin="10,1,0,0"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Top"
-                             VerticalContentAlignment="Center"
-                             FontSize="10"
-                             Text="C:\Users\cbanw\Downloads\steam\The Haunted Island a Frog Detective 0102"
-                             TextWrapping="Wrap" />
-                    <Button x:Name="btnChooseDestinationPath"
-                            Height="24"
-                            Margin="10,0,0,0"
-                            Content="Choose" />
-                </WrapPanel>
-                <WrapPanel x:Name="wpnlDesitnationOptions"
-                           Margin="5,5,5,0">
-                    <Label x:Name="lblDestinationOptions"
-                           Width="60"
-                           Margin="6,0,0,0"
-                           HorizontalContentAlignment="Right"
-                           Content="Options"
-                           Foreground="#996600" />
-                </WrapPanel>
-            </StackPanel>
+        <!--  FEEDBACK  -->
+        <Border Grid.Row="2"
+                Background="AliceBlue">
         </Border>
-        <Button Grid.Row="3"
-                Margin="672,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Button" />
+
+        <!--  BUTTON  -->
+        <Border Grid.Row="3"
+                Background="RosyBrown">
+            <Button HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Button" />
+        </Border>
     </Grid>
 </Window>
