@@ -1,10 +1,9 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 1-25-2021-11:57 AM
+ * UPDATED: 1-25-2021-4:38 PM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2020 A Pretty Cool Program All rights reserved
  */
-
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
@@ -32,11 +31,25 @@ namespace Sobchak
             imgLogo.Source = Du.DuBitmap.FromUri(sobchakAssembly, "/Resources/Asset/Image/Logo/sobchak-logo-800x150.png");
         }
 
+        /// <summary></summary>
         private void Go()
         {
 
+
+
+            DuDirectory.Create($"{txbxSourcePath.Text}/.sobchak");
+
+            FileInfo[] files = Du.DuDirectory.GetFileNames(txbxSourcePath.Text);
+
+            foreach(FileInfo file in files)
+            {
+                DuSha.WriteSha256ValueToFile(file.FullName, $"{txbxSourcePath.Text}/.sobchak/{file.Name}.sobchak");
+
+                //var sha256Value = Du.DuSha.GetSha256Value(file.FullName);
+            }
         }
 
+        /// <summary></summary>
         private void SourcePathChanged()
         {
             if(txbxSourcePath.Text is not "")
@@ -45,16 +58,17 @@ namespace Sobchak
                 {
                     btnGo.Background = new SolidColorBrush(Color.FromArgb(100, 0, 166, 166));
                     btnGo.Foreground = new SolidColorBrush(Colors.Black);
-                    btnGo.IsEnabled  = true;
+                    btnGo.IsEnabled = true;
                 }
                 else
                 {
                     btnGo.Foreground = new SolidColorBrush(Color.FromArgb(100, 0, 166, 166));
-                    btnGo.IsEnabled  = false;
+                    btnGo.IsEnabled = false;
                 }
             }
         }
 
+        /// <summary></summary>
         private void ChooseSource()
         {
             txbxSourcePath.Text = DuFolderDialog.GetFolderPath();
