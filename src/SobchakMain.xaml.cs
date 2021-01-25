@@ -4,9 +4,12 @@
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2020 A Pretty Cool Program All rights reserved
  */
-using System.Windows;
-using Du;
 
+using System.IO;
+using System.Windows;
+using System.Windows.Media;
+
+using Du;
 
 namespace Sobchak
 {
@@ -23,15 +26,44 @@ namespace Sobchak
         /// <summary></summary>
         private void SetupLogoAndVersion()
         {
-            var sobchakAssembly = DuApplication.GetApplicationAssemblyName();
+            var sobchakAssembly = DuApplication.GetAssemblyName();
 
-            Title = $"Sobchak v{DuApplication.GetApplicationVersion()}";
+            Title = $"Sobchak v{DuApplication.GetVersionInformational()}";
             imgLogo.Source = Du.DuBitmap.FromUri(sobchakAssembly, "/Resources/Asset/Image/Logo/sobchak-logo-800x150.png");
         }
 
-        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void Go()
         {
 
         }
+
+        private void SourcePathChanged()
+        {
+            if(txbxSourcePath.Text is not "")
+            {
+                if(Directory.Exists(txbxSourcePath.Text))
+                {
+                    btnGo.Background = new SolidColorBrush(Color.FromArgb(100, 0, 166, 166));
+                    btnGo.Foreground = new SolidColorBrush(Colors.Black);
+                    btnGo.IsEnabled  = true;
+                }
+                else
+                {
+                    btnGo.Foreground = new SolidColorBrush(Color.FromArgb(100, 0, 166, 166));
+                    btnGo.IsEnabled  = false;
+                }
+            }
+        }
+
+        private void ChooseSource()
+        {
+            txbxSourcePath.Text = DuFolderDialog.GetFolderPath();
+        }
+
+        // EVENT HANDLERS
+        private void btnChooseSourcePath_Click(object sender, RoutedEventArgs e) => ChooseSource();
+        private void btnGo_Click(object sender, RoutedEventArgs e) => Go();
+        private void txbxSourcePath_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e) => SourcePathChanged();
+
     }
 }

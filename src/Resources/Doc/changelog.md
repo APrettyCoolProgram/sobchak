@@ -3,8 +3,13 @@
 ## Version 0.2 - January 19, 2021
 > Basic UI
 
-#### v0.2.21025.1852 (2021-01-25)
-* `MODIFIED` Cleaned up SobchakMain.xaml
+#### v0.2.21025.2016 (2021-01-25)
+* `ADDED` SobchakMain.btnChooseSourcePath_Click()
+* `ADDED` SobchakMain.ChooseSource()
+* `ADDED` SobchakMain.btnGo_Click()
+* `ADDED` SobchakMain.Go()
+* `ADDED` SobchakMain.txbxSourcePath_TextChanged()
+* `ADDED` SobchakMain.SourcePathChanged()
 * `MODIFIED` Minor UI changes
 
 #### v0.2.21025.1703 (2021-01-25)
