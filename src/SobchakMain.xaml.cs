@@ -1,13 +1,13 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 1-25-2021-4:38 PM
+ * UPDATED: 1-26-2021-9:49 AM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2020 A Pretty Cool Program All rights reserved
  */
+
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
-
 using Du;
 
 namespace Sobchak
@@ -34,16 +34,13 @@ namespace Sobchak
         /// <summary></summary>
         private void Go()
         {
-
-
-
             DuDirectory.Create($"{txbxSourcePath.Text}/.sobchak");
 
             FileInfo[] files = Du.DuDirectory.GetFileNames(txbxSourcePath.Text);
 
             foreach(FileInfo file in files)
             {
-                DuSha.WriteSha256ValueToFile(file.FullName, $"{txbxSourcePath.Text}/.sobchak/{file.Name}.sobchak");
+                DuSha256.WriteHashValueAsContent(file.FullName, $"{txbxSourcePath.Text}/.sobchak/{file.Name}.sobchak");
 
                 //var sha256Value = Du.DuSha.GetSha256Value(file.FullName);
             }
@@ -78,6 +75,5 @@ namespace Sobchak
         private void btnChooseSourcePath_Click(object sender, RoutedEventArgs e) => ChooseSource();
         private void btnGo_Click(object sender, RoutedEventArgs e) => Go();
         private void txbxSourcePath_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e) => SourcePathChanged();
-
     }
 }

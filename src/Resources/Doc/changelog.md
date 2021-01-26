@@ -3,6 +3,9 @@
 ## Version 0.3 - January 19, 2021
 > Basic logic
 
+#### v0.3.21026.1451 (2021-01-26)
+* `INFO` No changes
+
 #### v0.3.21025.2158 (2021-01-25)
 * `ADDED` ./sobchak/ is created if it does not exist
 * `ADDED` SHA256 values are saved to ./sobchak/%filename%.sobchack
