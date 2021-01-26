@@ -3,7 +3,10 @@
 ## Version 0.7rc1
 > Release candidate 1
 
-#### v0.7.21026.1949rc1 (2021-01-26)
+#### v0.7.21026.2042 (2021-01-26)
+* `INFO` Updated title bar version
+
+#### v0.7.21026.1949 (2021-01-26)
 * `INFO` Code and comment cleanup
 
 ## Version 0.6
