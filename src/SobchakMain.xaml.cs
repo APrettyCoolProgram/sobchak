@@ -1,10 +1,11 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 1-26-2021-10:03 AM
+ * UPDATED: 1-26-2021-1:06 PM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2020 A Pretty Cool Program All rights reserved
  */
 
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
@@ -44,7 +45,6 @@ namespace Sobchak
                 VerifyHashes();
             }
         }
-        
 
         private void CreateHashes()
         {
@@ -84,7 +84,72 @@ namespace Sobchak
 
         private void VerifyHashes()
         {
+            var sourcePath = txbxSourcePath.Text;
 
+            FileInfo[] files = Du.DuDirectory.GetFileNames(sourcePath);
+
+            var fileNums = 1;
+
+            var feedbackText = "Please wait until verification process is complete";
+
+            var feedback = new Dictionary<string, List<string>>
+            {
+                {"invalid", new List<string>() },
+                {"missing", new List<string>() }
+            };
+
+            foreach(FileInfo file in files)
+            {
+                decimal percentComplete = (decimal)fileNums /files.Length;
+
+                lblProgress.Content = $"Verifying hash values for file {fileNums} of {files.Length}";
+                DuLabel.RefreshContent(lblProgress);
+
+                if(!File.Exists($"{sourcePath}/.sobchak/{file.Name}.sobchak"))
+                {
+                    feedback["missing"].Add(file.Name);
+
+                }
+                else
+                {
+                    var sobchakHash = File.ReadAllText($"{sourcePath}/.sobchak/{file.Name}.sobchak");
+
+                    var yep = DuSha256.FileMatchesSha256Value($"{sourcePath}/{file.Name}", sobchakHash);
+
+                    if(!yep)
+                    {
+                        feedback["invalid"].Add(file.Name);
+                    }
+
+
+                }
+
+                var p = percentComplete * 100;
+                var n = (int)p;
+                lblProgressBar.Width = n * 4;
+                lblProgressBar.Content = $"{n}%";
+                fileNums++;
+            }
+
+            lblProgress.Content = "All hash values verified!";
+            DuLabel.RefreshContent(lblProgress);
+
+
+            var tx = "MISSING\n";
+
+            foreach(var m in feedback["missing"])
+            {
+                tx += $"{m}\n";
+            }
+
+            tx += "INVALID\n";
+
+            foreach(var i in feedback["invalid"])
+            {
+                tx += $"{i}\n";
+            }
+
+            txbxFeedback.Text = tx;
         }
 
 

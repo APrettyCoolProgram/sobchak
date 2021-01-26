@@ -1,6 +1,12 @@
 ﻿# Sobchak: Changelog
 
-## Version 0.4 - January 19, 2021
+## Version 0.5
+> Verify hashes functionality
+
+#### v0.5.21026.1810 (2021-01-26)
+* `INFO` Initial verify hashes functionality
+
+## Version 0.4
 > Create hashes functionality
 
 #### v0.4.21026.1748 (2021-01-26)
