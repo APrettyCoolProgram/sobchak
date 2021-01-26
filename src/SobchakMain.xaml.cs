@@ -1,6 +1,6 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 1-26-2021-9:49 AM
+ * UPDATED: 1-26-2021-10:03 AM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2020 A Pretty Cool Program All rights reserved
  */
@@ -28,23 +28,65 @@ namespace Sobchak
             var sobchakAssembly = DuApplication.GetAssemblyName();
 
             Title = $"Sobchak v{DuApplication.GetVersionInformational()}";
-            imgLogo.Source = Du.DuBitmap.FromUri(sobchakAssembly, "/Resources/Asset/Image/Logo/sobchak-logo-800x150.png");
+            imgLogo.Source = DuBitmap.FromUri(sobchakAssembly, "/Resources/Asset/Image/Logo/sobchak-logo-800x150.png");
         }
 
         /// <summary></summary>
         private void Go()
         {
-            DuDirectory.Create($"{txbxSourcePath.Text}/.sobchak");
+            if(rbtnCreate.IsChecked is true)
+            {
+                CreateHashes();
+            }
 
-            FileInfo[] files = Du.DuDirectory.GetFileNames(txbxSourcePath.Text);
+            if(rbtnVerify.IsChecked is true)
+            {
+                VerifyHashes();
+            }
+        }
+        
+
+        private void CreateHashes()
+        {
+            var sourcePath = txbxSourcePath.Text;
+
+            DuDirectory.Create($"{sourcePath}/.sobchak");
+
+            FileInfo[] files = Du.DuDirectory.GetFileNames(sourcePath);
+
+            var fileNums = 1;
+
+            var feedbackText = "";
 
             foreach(FileInfo file in files)
             {
-                DuSha256.WriteHashValueAsContent(file.FullName, $"{txbxSourcePath.Text}/.sobchak/{file.Name}.sobchak");
+                decimal percentComplete = (decimal)fileNums /files.Length;
 
-                //var sha256Value = Du.DuSha.GetSha256Value(file.FullName);
+                lblProgress.Content = $"Computing hash values for file {fileNums} of {files.Length}";
+                DuLabel.RefreshContent(lblProgress);
+                feedbackText += $"Creating hash for \"{file.Name}\"...";
+                txbxFeedback.Text = feedbackText;
+                Du.DuTextBox.RefreshContent(txbxFeedback);
+                DuSha256.WriteHashValueAsContent(file.FullName, $"{sourcePath}/.sobchak/{file.Name}.sobchak");
+                feedbackText += "complete.\n";
+                txbxFeedback.Text = feedbackText;
+                Du.DuTextBox.RefreshContent(txbxFeedback);
+                var p = percentComplete * 100;
+                var n = (int)p;
+                lblProgressBar.Width = n * 4;
+                lblProgressBar.Content = $"{n}%";
+                fileNums++;
             }
+
+            lblProgress.Content = "All hash values computed!";
+            DuLabel.RefreshContent(lblProgress);
         }
+
+        private void VerifyHashes()
+        {
+
+        }
+
 
         /// <summary></summary>
         private void SourcePathChanged()

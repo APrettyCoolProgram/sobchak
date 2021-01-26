@@ -5,3 +5,4 @@
 * Show files when choosing a source
     * Don't show .sobchak/
 * Update with what file is being worked on
+* Maybe show file sizes so the user knows if a file will take a while?

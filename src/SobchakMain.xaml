@@ -1,7 +1,7 @@
 ﻿<!--
     PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
     FILE: SobchakMain.xaml
-    UPDATED: 1-25-2021-2:49 PM
+    UPDATED: 1-26-2021-12:35 PM
     LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
     Copyright 2020 A Pretty Cool Program All rights reserved
 -->
@@ -72,7 +72,7 @@
                              TextAlignment="Center"
                              TextWrapping="wrap" />
                 </Border>
-                <StackPanel x:Name="spnlSourcePath"
+                <WrapPanel x:Name="wpnlSourcePath"
                             Margin="5"
                             Background="#F2F7F2">
                     <Label x:Name="lblSourcePath"
@@ -137,9 +137,18 @@
                             </StackPanel>
                         </TextBox.ToolTip>
                     </TextBox>
+                    <RadioButton x:Name="rbtnCreate"
+                                 Margin="10"
+                                 IsChecked="True"
+                                 Width="75"
+                                 Content="Create" />
+                    <RadioButton x:Name="rbtnVerify"
+                                 Margin="10"
+                                 Width="530"
+                                 Content="Verify" />
                     <Button x:Name="btnChooseSourcePath"
                             Width="60"
-                            Margin="0,5,40,0"
+                            Margin="0,5,0,0"
                             HorizontalAlignment="Right"
                             Background="#00A6A6"
                             BorderBrush="#996600"
@@ -178,7 +187,7 @@
                             </StackPanel>
                         </Button.ToolTip>
                     </Button>
-                </StackPanel>
+                </WrapPanel>
             </DockPanel>
         </Border>
 
@@ -198,13 +207,19 @@
                         BorderThickness="1"
                         CornerRadius="5"
                         DockPanel.Dock="Left">
-                    <TextBlock x:Name="txbkFeedback"
-                               Width="425"
-                               Padding="3"
-                               HorizontalAlignment="Left"
-                               DockPanel.Dock="Right"
-                               Text="TextBlock"
-                               TextWrapping="Wrap" />
+                    <TextBox x:Name="txbxFeedback"
+                             Width="400"
+                             Margin="5"
+                             Padding="3"
+                             HorizontalAlignment="Left"
+                             BorderThickness="0"
+                             DockPanel.Dock="Right"
+                             FontFamily="Consolas"
+                             FontSize="10"
+                             ScrollViewer.VerticalScrollBarVisibility="Visible"
+                             Text="TextBlock"
+                             TextWrapping="NoWrap"
+                             VerticalScrollBarVisibility="Visible" />
                 </Border>
             </DockPanel>
         </Border>
@@ -213,48 +228,72 @@
         <Border x:Name="brdrGoButtonWidget"
                 Grid.Row="3"
                 BorderThickness="0">
-            <Button x:Name="btnGo"
-                    Width="60"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    BorderBrush="#996600"
-                    BorderThickness="1"
-                    Click="btnGo_Click"
-                    Content="Go"
-                    Foreground="#E25822"
-                    IsEnabled="false">
-                <Button.Resources>
-                    <Style TargetType="{x:Type Border}">
-                        <Setter Property="CornerRadius" Value="2" />
-                    </Style>
-                </Button.Resources>
-                <Button.ToolTip>
-                    <StackPanel>
-                        <TextBlock Margin="0,0,0,5"
-                                   FontSize="18"
-                                   FontWeight="Bold"
-                                   Foreground="#996600">
-                            GO!
-                        </TextBlock>
-                        <TextBlock Margin="0,0,0,5"
-                                   FontSize="14">
-                            Create hash files!
-                        </TextBlock>
-                        <TextBlock Margin="0,0,0,5"
-                                   FontSize="12">
-                            Pressing this button creates hashes for files in the source folder.<LineBreak />
-                        </TextBlock>
-                        <Border Margin="0,8"
-                                BorderBrush="#996600"
-                                BorderThickness="0,2,0,0" />
-                        <TextBlock Margin="0,0,0,5"
-                                   HorizontalAlignment="Center"
-                                   FontSize="12">
-                            For more information, please see the Sobchak manual.
-                        </TextBlock>
-                    </StackPanel>
-                </Button.ToolTip>
-            </Button>
+            <WrapPanel>
+                <Button x:Name="btnGo"
+                        Width="60"
+                        Margin="10"
+                        HorizontalAlignment="left"
+                        VerticalAlignment="Center"
+                        BorderBrush="#996600"
+                        BorderThickness="1"
+                        Click="btnGo_Click"
+                        Content="Go"
+                        Foreground="#E25822"
+                        IsEnabled="false">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="2" />
+                        </Style>
+                    </Button.Resources>
+                    <Button.ToolTip>
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,5"
+                                       FontSize="18"
+                                       FontWeight="Bold"
+                                       Foreground="#996600">
+                                GO!
+                            </TextBlock>
+                            <TextBlock Margin="0,0,0,5"
+                                       FontSize="14">
+                                Create hash files!
+                            </TextBlock>
+                            <TextBlock Margin="0,0,0,5"
+                                       FontSize="12">
+                                Pressing this button creates hashes for files in the source folder.<LineBreak />
+                            </TextBlock>
+                            <Border Margin="0,8"
+                                    BorderBrush="#996600"
+                                    BorderThickness="0,2,0,0" />
+                            <TextBlock Margin="0,0,0,5"
+                                       HorizontalAlignment="Center"
+                                       FontSize="12">
+                                For more information, please see the Sobchak manual.
+                            </TextBlock>
+                        </StackPanel>
+                    </Button.ToolTip>
+                </Button>
+                <Label x:Name="lblProgress"
+                       Width="285"
+                       Height="24"
+                       Content="Progress"
+                       FontFamily="Consolas"
+                       FontSize="12" />
+                <Border Width="400"
+                        Height="24"
+                        BorderBrush="#996600"
+                        BorderThickness="1">
+                    <Label x:Name="lblProgressBar"
+                           Width="0"
+                           HorizontalAlignment="Left"
+                           HorizontalContentAlignment="Right"
+                           VerticalContentAlignment="Center"
+                           Background="#00A6A6"
+                           Content="0"
+                           FontFamily="Consolas"
+                           FontSize="10"
+                           Foreground="#F2F7F2" />
+                </Border>
+            </WrapPanel>
         </Border>
     </Grid>
 </Window>

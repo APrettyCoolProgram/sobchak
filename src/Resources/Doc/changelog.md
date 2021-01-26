@@ -1,7 +1,16 @@
 ﻿# Sobchak: Changelog
 
-## Version 0.3 - January 19, 2021
+## Version 0.4 - January 19, 2021
+> Create hashes functionality
+
+#### v0.4.21026.1748 (2021-01-26)
+* `INFO` Initial create hashes functionality
+
+## Version 0.3
 > Basic logic
+
+#### v0.3.21026. (2021-01-26)
+* `MODIFIED` SobchakMain.xaml.cs.Go() now calls DuSobchak.CreateSobchaks() 
 
 #### v0.3.21026.1451 (2021-01-26)
 * `INFO` No changes
@@ -10,7 +19,7 @@
 * `ADDED` ./sobchak/ is created if it does not exist
 * `ADDED` SHA256 values are saved to ./sobchak/%filename%.sobchack
 
-## Version 0.2 - January 19, 2021
+## Version 0.2
 > Basic UI
 
 #### v0.2.21025.2016 (2021-01-25)
@@ -39,7 +48,7 @@
 #### v0.2.21020.1546 (2021-01-21)
 * `ADDED` Sobchak logo
 
-## Version 0.1 - January 19, 2021
+## Version 0.1
 > Project framework updates
 
 #### v0.1.21020.1411 (2021-01-20)
@@ -47,7 +56,7 @@
 * `UPDATED` Documentation
 * `UPDATED` sobchak.licenseheader
 
-## Version 0.0 - January 19, 2021
+## Version 0.0
 > Initial commit, no working code.
 
 #### v0.0.0.0 (2021-01-19)
