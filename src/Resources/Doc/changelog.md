@@ -1,5 +1,17 @@
 ﻿# Sobchak: Changelog
 
+## Version 0.7rc1
+> Release candidate 1
+
+#### v0.7.21026.1949rc1 (2021-01-26)
+* `INFO` Code and comment cleanup
+
+## Version 0.6
+> Code and comment refactoring/cleanup
+
+#### v0.6.21026. (2021-01-26)
+* `INFO` Code and comment cleanup
+
 ## Version 0.5
 > Verify hashes functionality
 

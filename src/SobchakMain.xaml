@@ -73,8 +73,8 @@
                              TextWrapping="wrap" />
                 </Border>
                 <WrapPanel x:Name="wpnlSourcePath"
-                            Margin="5"
-                            Background="#F2F7F2">
+                           Margin="5"
+                           Background="#F2F7F2">
                     <Label x:Name="lblSourcePath"
                            Width="40"
                            Margin="6,0,0,0"
@@ -138,13 +138,13 @@
                         </TextBox.ToolTip>
                     </TextBox>
                     <RadioButton x:Name="rbtnCreate"
-                                 Margin="10"
-                                 IsChecked="True"
                                  Width="75"
-                                 Content="Create" />
-                    <RadioButton x:Name="rbtnVerify"
                                  Margin="10"
+                                 Content="Create"
+                                 IsChecked="True" />
+                    <RadioButton x:Name="rbtnVerify"
                                  Width="530"
+                                 Margin="10"
                                  Content="Verify" />
                     <Button x:Name="btnChooseSourcePath"
                             Width="60"
@@ -194,33 +194,25 @@
         <!--  FEEDBACK  -->
         <Border x:Name="brdrFeebackWidget"
                 Grid.Row="2"
+                Width="730"
                 Margin="10,5,10,5"
                 BorderBrush="Gray"
                 BorderThickness="0">
             <DockPanel>
-                <Border x:Name="brdrFeedbackVisuals"
-                        Width="350"
-                        BorderThickness="0"
-                        DockPanel.Dock="Left" />
-                <Border x:Name="brdr"
-                        BorderBrush="Gray"
-                        BorderThickness="1"
-                        CornerRadius="5"
-                        DockPanel.Dock="Left">
-                    <TextBox x:Name="txbxFeedback"
-                             Width="400"
-                             Margin="5"
-                             Padding="3"
-                             HorizontalAlignment="Left"
-                             BorderThickness="0"
-                             DockPanel.Dock="Right"
-                             FontFamily="Consolas"
-                             FontSize="10"
-                             ScrollViewer.VerticalScrollBarVisibility="Visible"
-                             Text="TextBlock"
-                             TextWrapping="NoWrap"
-                             VerticalScrollBarVisibility="Visible" />
-                </Border>
+                <TextBox x:Name="txbxFeedback"
+                         Width="710"
+                         Margin="5"
+                         Padding="3"
+                         HorizontalAlignment="Left"
+                         BorderThickness="0"
+                         DockPanel.Dock="Right"
+                         FontFamily="Consolas"
+                         FontSize="10"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible"
+                         Text=""
+                         TextWrapping="NoWrap"
+                         VerticalScrollBarVisibility="Auto" />
+
             </DockPanel>
         </Border>
 
@@ -230,7 +222,7 @@
                 BorderThickness="0">
             <WrapPanel>
                 <Button x:Name="btnGo"
-                        Width="60"
+                        Width="50"
                         Margin="10"
                         HorizontalAlignment="left"
                         VerticalAlignment="Center"
@@ -272,13 +264,7 @@
                         </StackPanel>
                     </Button.ToolTip>
                 </Button>
-                <Label x:Name="lblProgress"
-                       Width="285"
-                       Height="24"
-                       Content="Progress"
-                       FontFamily="Consolas"
-                       FontSize="12" />
-                <Border Width="400"
+                <Border Width="700"
                         Height="24"
                         BorderBrush="#996600"
                         BorderThickness="1">

@@ -1,11 +1,10 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 1-26-2021-1:06 PM
+ * UPDATED: 1-26-2021-2:52 PM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2020 A Pretty Cool Program All rights reserved
  */
 
-using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
@@ -35,123 +34,115 @@ namespace Sobchak
         /// <summary></summary>
         private void Go()
         {
+            var sourcePath = txbxSourcePath.Text;
+            FileInfo[] fileNames = DuDirectory.GetFileNames(sourcePath);
+
+            DuDirectory.Create($"{sourcePath}/.sobchak");
+
             if(rbtnCreate.IsChecked is true)
             {
-                CreateHashes();
+                CreateHashes(sourcePath, fileNames);
             }
 
             if(rbtnVerify.IsChecked is true)
             {
-                VerifyHashes();
+                VerifyHashes(sourcePath, fileNames);
             }
         }
 
-        private void CreateHashes()
+        /// <summary></summary>
+        /// <param name="sourcePath"></param>
+        /// <param name="fileNames"></param>
+        private void CreateHashes(string sourcePath, FileInfo[] fileNames)
         {
-            var sourcePath = txbxSourcePath.Text;
-
-            DuDirectory.Create($"{sourcePath}/.sobchak");
-
-            FileInfo[] files = Du.DuDirectory.GetFileNames(sourcePath);
-
-            var fileNums = 1;
-
+            var fileCounter = 1;
             var feedbackText = "";
 
-            foreach(FileInfo file in files)
+            foreach(FileInfo fileName in fileNames)
             {
-                decimal percentComplete = (decimal)fileNums /files.Length;
+                feedbackText += $"Creating hash for file {fileCounter} of {fileNames.Length}: \"{fileName.Name}\"...";
+                RefreshFeedbackText(feedbackText);
 
-                lblProgress.Content = $"Computing hash values for file {fileNums} of {files.Length}";
-                DuLabel.RefreshContent(lblProgress);
-                feedbackText += $"Creating hash for \"{file.Name}\"...";
-                txbxFeedback.Text = feedbackText;
-                Du.DuTextBox.RefreshContent(txbxFeedback);
-                DuSha256.WriteHashValueAsContent(file.FullName, $"{sourcePath}/.sobchak/{file.Name}.sobchak");
+                DuSha256.WriteHashValueAsContent(fileName.FullName, $"{sourcePath}/.sobchak/{fileName.Name}.sobchak");
+
                 feedbackText += "complete.\n";
-                txbxFeedback.Text = feedbackText;
-                Du.DuTextBox.RefreshContent(txbxFeedback);
-                var p = percentComplete * 100;
-                var n = (int)p;
-                lblProgressBar.Width = n * 4;
-                lblProgressBar.Content = $"{n}%";
-                fileNums++;
-            }
+                RefreshFeedbackText(feedbackText);
 
-            lblProgress.Content = "All hash values computed!";
-            DuLabel.RefreshContent(lblProgress);
+                UpdateProgressBar(fileCounter, fileNames.Length);
+
+                fileCounter++;
+            }
         }
 
-        private void VerifyHashes()
+        /// <summary></summary>
+        /// <param name="fileCoutner"></param>
+        /// <param name="numberOfFiles"></param>
+        private void UpdateProgressBar(int fileCoutner, int numberOfFiles)
         {
-            var sourcePath = txbxSourcePath.Text;
+            var percentComplete = ((decimal)fileCoutner /numberOfFiles) * 100;
+            lblProgressBar.Width = (int)percentComplete * 7;
+            lblProgressBar.Content = $"{(int)percentComplete}%";
+        }
 
-            FileInfo[] files = Du.DuDirectory.GetFileNames(sourcePath);
+        /// <summary></summary>
+        /// <param name="sourcePath"></param>
+        /// <param name="fileNames"></param>
+        private void VerifyHashes(string sourcePath, FileInfo[] fileNames)
+        {
+            var fileCounter = 1;
+            var feedbackText = "";
 
-            var fileNums = 1;
+            var invalidTotal = 0;
 
-            var feedbackText = "Please wait until verification process is complete";
-
-            var feedback = new Dictionary<string, List<string>>
+            foreach(FileInfo fileName in fileNames)
             {
-                {"invalid", new List<string>() },
-                {"missing", new List<string>() }
-            };
-
-            foreach(FileInfo file in files)
-            {
-                decimal percentComplete = (decimal)fileNums /files.Length;
-
-                lblProgress.Content = $"Verifying hash values for file {fileNums} of {files.Length}";
-                DuLabel.RefreshContent(lblProgress);
-
-                if(!File.Exists($"{sourcePath}/.sobchak/{file.Name}.sobchak"))
+                if(!File.Exists($"{sourcePath}/.sobchak/{fileName.Name}.sobchak"))
                 {
-                    feedback["missing"].Add(file.Name);
+                    feedbackText += $"MISSING HASH: \"{fileName.Name}\" (File {fileCounter} of {fileNames.Length})...creating...";
+                    RefreshFeedbackText(feedbackText);
 
+                    DuSha256.WriteHashValueAsContent(fileName.FullName, $"{sourcePath}/.sobchak/{fileName.Name}.sobchak");
+
+                    feedbackText += "complete.\n";
+                    RefreshFeedbackText(feedbackText);
                 }
                 else
                 {
-                    var sobchakHash = File.ReadAllText($"{sourcePath}/.sobchak/{file.Name}.sobchak");
+                    var sobchakHash = File.ReadAllText($"{sourcePath}/.sobchak/{fileName.Name}.sobchak");
 
-                    var yep = DuSha256.FileMatchesSha256Value($"{sourcePath}/{file.Name}", sobchakHash);
+                    var hashesAreEqual = DuSha256.FileMatchesSha256Value($"{sourcePath}/{fileName.Name}", sobchakHash);
 
-                    if(!yep)
+                    if(hashesAreEqual)
                     {
-                        feedback["invalid"].Add(file.Name);
+                        feedbackText += $"VALID HASH: \"{fileName.Name}\" (File {fileCounter} of {fileNames.Length})\n";
+                        RefreshFeedbackText(feedbackText);
                     }
-
-
+                    else
+                    {
+                        feedbackText += $"INVALID HASH: \"{fileName.Name}\" (File {fileCounter} of {fileNames.Length})\n";
+                        RefreshFeedbackText(feedbackText);
+                        invalidTotal++;
+                    }
                 }
 
-                var p = percentComplete * 100;
-                var n = (int)p;
-                lblProgressBar.Width = n * 4;
-                lblProgressBar.Content = $"{n}%";
-                fileNums++;
+                UpdateProgressBar(fileCounter, fileNames.Length);
+
+                fileCounter++;
             }
 
-            lblProgress.Content = "All hash values verified!";
-            DuLabel.RefreshContent(lblProgress);
-
-
-            var tx = "MISSING\n";
-
-            foreach(var m in feedback["missing"])
+            if(invalidTotal != 0)
             {
-                tx += $"{m}\n";
+                var errMsg = MessageBox.Show("There are invalid hashes!", "INVALID HASHES FOUND!", MessageBoxButton.OK);
             }
-
-            tx += "INVALID\n";
-
-            foreach(var i in feedback["invalid"])
-            {
-                tx += $"{i}\n";
-            }
-
-            txbxFeedback.Text = tx;
         }
 
+        /// <summary></summary>
+        /// <param name="feedbackText"></param>
+        private void RefreshFeedbackText(string feedbackText)
+        {
+            txbxFeedback.Text = feedbackText;
+            DuTextBox.RefreshContent(txbxFeedback);
+        }
 
         /// <summary></summary>
         private void SourcePathChanged()
