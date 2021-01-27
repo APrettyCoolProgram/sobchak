@@ -132,7 +132,7 @@ namespace Sobchak
 
             if(invalidTotal != 0)
             {
-                var errMsg = MessageBox.Show("There are invalid hashes!", "INVALID HASHES FOUND!", MessageBoxButton.OK);
+                MessageBoxResult errMsg = MessageBox.Show("There are invalid hashes!", "INVALID HASHES FOUND!", MessageBoxButton.OK);
             }
         }
 
