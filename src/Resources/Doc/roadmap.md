@@ -1,5 +1,6 @@
 ﻿# Sobchak: Roadmap
 
+## Non-Archiwizator
 * Fix button colors so they interact better
 * Show files when choosing a source
     * Don't show .sobchak/
@@ -9,3 +10,8 @@
 * Ignore certain file name/extensions/sizes
 * Auto verify recursively
 * Auto create recursively
+
+
+## Archiwizator
+* Update SetupSobchak() to mirror the changes
+* Use smaller version of the logo so other controls can go next to it?
