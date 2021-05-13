@@ -1,5 +1,12 @@
 ﻿# Sobchak: Changelog
 
+## Version 0.8.x.x
+> Additional fucntionality to be added
+
+#### v0.8.21026.2042 (2021-05-13)
+* `ADDED` SetupMainWindow.cs
+
+
 ## Version 0.7rc1
 > Release candidate 1
 

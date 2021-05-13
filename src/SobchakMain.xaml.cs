@@ -1,10 +1,9 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 1-26-2021-2:52 PM
+ * UPDATED: 5-13-2021-10:09 AM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
- *          Copyright 2020 A Pretty Cool Program All rights reserved
+ *          Copyright 2021 A Pretty Cool Program All rights reserved
  */
-
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
@@ -22,12 +21,18 @@ namespace Sobchak
             SetupLogoAndVersion();
         }
 
+        private void SetupMainWindow()
+        {
+
+        }
+
+
         /// <summary></summary>
         private void SetupLogoAndVersion()
         {
-            var sobchakAssembly = DuApplication.GetAssemblyName();
+            var sobchakAssembly = DuApplication.GetEntryAssemblyName();
 
-            Title = $"Sobchak v{DuApplication.GetVersionInformational()}";
+            Title = $"Sobchak v{DuApplication.GetEntryAssemblyInformationalVersion()}";
             imgLogo.Source = DuBitmap.FromUri(sobchakAssembly, "/Resources/Asset/Image/Logo/sobchak-logo-800x150.png");
         }
 
