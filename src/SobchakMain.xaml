@@ -15,271 +15,95 @@
         x:Name="winSobchakMain"
         Title="Sobchak vX.X.X.X"
         Width="800"
-        Height="500"
+        Height="160"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="120" />
-            <RowDefinition Height="125" />
-            <RowDefinition Height="175" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
 
-        <!--  LOGO  -->
-        <DockPanel x:Name="dpnlLogo"
-                   Grid.ColumnSpan="2"
-                   HorizontalAlignment="Center">
-            <Image x:Name="imgLogo"
-                   Height="100"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center" />
-        </DockPanel>
+        <Image x:Name="imgLogo"
+               Height="100"
+               Margin="10,10,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Source="/Resources/Asset/Image/Logo/sobchak-logo-330x150.png" />
 
-        <!--  SOURCE  -->
-        <Border x:Name="brdrSourceWidget"
-                Grid.Row="1"
-                Height="117"
-                Margin="10,0,10,0"
-                Background="#F2F7F2"
+        <Label x:Name="lblCurrentDirectory"
+               Width="540"
+               Margin="235,20,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               VerticalContentAlignment="Top"
+               BorderBrush="DarkGray"
+               BorderThickness="1"
+               Content="CurrentDirectory"
+               FontFamily="Consolas"
+               FontSize="10">
+            <Label.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="2" />
+                </Style>
+            </Label.Resources>
+        </Label>
+
+        <Button x:Name="btnVerify"
+                Width="50"
+                Margin="235,49,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
                 BorderBrush="#996600"
                 BorderThickness="1"
-                CornerRadius="5">
-            <DockPanel x:Name="wpnlSourceWidget">
-                <Border x:Name="brdrSourceLabel"
-                        Height="107"
-                        Margin="4"
-                        Background="#FFD685"
-                        BorderBrush="#996600"
-                        BorderThickness="1"
-                        CornerRadius="3">
-                    <TextBox x:Name="lblSource"
-                             Width="15"
-                             Height="104"
-                             Margin="1"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Top"
-                             HorizontalContentAlignment="Center"
-                             VerticalContentAlignment="Center"
-                             Background="#FFD685"
-                             BorderThickness="0"
-                             FontFamily="Consolas"
-                             FontSize="14"
-                             FontWeight="Bold"
-                             Foreground="#996600"
-                             Text="SOURCE"
-                             TextAlignment="Center"
-                             TextWrapping="wrap" />
-                </Border>
-                <WrapPanel x:Name="wpnlSourcePath"
-                           Margin="5"
-                           Background="#F2F7F2">
-                    <Label x:Name="lblSourcePath"
-                           Width="40"
-                           Margin="6,0,0,0"
-                           HorizontalAlignment="Left"
-                           HorizontalContentAlignment="Left"
-                           Content="Path"
-                           Foreground="#996600" />
-                    <TextBox x:Name="txbxSourcePath"
-                             Width="700"
-                             Height="24"
-                             Margin="10,1,0,0"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Top"
-                             VerticalContentAlignment="Center"
-                             FontSize="12"
-                             IsReadOnly="True"
-                             Text=""
-                             TextChanged="txbxSourcePath_TextChanged"
-                             TextWrapping="Wrap">
-                        <TextBox.ToolTip>
-                            <StackPanel>
-                                <TextBlock Margin="0,0,0,5"
-                                           FontSize="18"
-                                           FontWeight="Bold"
-                                           Foreground="#996600">
-                                    Source folder path
-                                </TextBlock>
-                                <TextBlock Margin="0,0,0,5"
-                                           FontSize="14">
-                                    The source folder path.
-                                </TextBlock>
-                                <TextBlock Margin="0,0,0,5"
-                                           FontSize="12">
-                                    Hashes will be created for all files in this directory.
-                                </TextBlock>
-                                <Border Margin="0,8"
-                                        BorderBrush="#996600"
-                                        BorderThickness="0,1,0,0" />
-                                <TextBlock Margin="0,0,0,5"
-                                           FontSize="12"
-                                           FontWeight="Bold">
-                                    <TextBlock.TextDecorations>
-                                        <TextDecoration />
-                                    </TextBlock.TextDecorations>
-                                    EXAMPLE
-                                </TextBlock>
-                                <TextBlock Margin="10,0,0,5"
-                                           FontSize="12"
-                                           FontStyle="Italic">
-                                    ../create/hashes/for/all/files/located/here/
-                                </TextBlock>
-                                <Border Margin="0,8"
-                                        BorderBrush="#996600"
-                                        BorderThickness="0,2,0,0" />
-                                <TextBlock Margin="0,0,0,5"
-                                           HorizontalAlignment="Center"
-                                           FontSize="12">
-                                    For more information, please see the Sobchak manual.
-                                </TextBlock>
-                            </StackPanel>
-                        </TextBox.ToolTip>
-                    </TextBox>
-                    <RadioButton x:Name="rbtnCreate"
-                                 Width="75"
-                                 Margin="10"
-                                 Content="Create"
-                                 IsChecked="True" />
-                    <RadioButton x:Name="rbtnVerify"
-                                 Width="530"
-                                 Margin="10"
-                                 Content="Verify" />
-                    <Button x:Name="btnChooseSourcePath"
-                            Width="60"
-                            Margin="0,5,0,0"
-                            HorizontalAlignment="Right"
-                            Background="#00A6A6"
-                            BorderBrush="#996600"
-                            BorderThickness="1"
-                            Click="btnChooseSourcePath_Click"
-                            Content="Choose">
-                        <Button.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="2" />
-                            </Style>
-                        </Button.Resources>
-                        <Button.ToolTip>
-                            <StackPanel>
-                                <TextBlock Margin="0,0,0,5"
-                                           FontSize="18"
-                                           FontWeight="Bold"
-                                           Foreground="#996600">
-                                    Choose the source folder
-                                </TextBlock>
-                                <TextBlock Margin="0,0,0,5"
-                                           FontSize="14">
-                                    Choose the source folder
-                                </TextBlock>
-                                <TextBlock Margin="0,0,0,5"
-                                           FontSize="12">
-                                    Pressing this button starts lets you choose a source folder.<LineBreak />
-                                </TextBlock>
-                                <Border Margin="0,8"
-                                        BorderBrush="#996600"
-                                        BorderThickness="0,2,0,0" />
-                                <TextBlock Margin="0,0,0,5"
-                                           HorizontalAlignment="Center"
-                                           FontSize="12">
-                                    For more information, please see the Sobchak manual.
-                                </TextBlock>
-                            </StackPanel>
-                        </Button.ToolTip>
-                    </Button>
-                </WrapPanel>
-            </DockPanel>
-        </Border>
+                Click="btnVerify_Click"
+                Content="Verify"
+                Foreground="DarkGreen"
+                IsEnabled="false">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="2" />
+                </Style>
+            </Button.Resources>
 
-        <!--  FEEDBACK  -->
-        <Border x:Name="brdrFeebackWidget"
-                Grid.Row="2"
-                Width="730"
-                Margin="10,5,10,5"
-                BorderBrush="Gray"
-                BorderThickness="0">
-            <DockPanel>
-                <TextBox x:Name="txbxFeedback"
-                         Width="710"
-                         Margin="5"
-                         Padding="3"
-                         HorizontalAlignment="Left"
-                         BorderThickness="0"
-                         DockPanel.Dock="Right"
-                         FontFamily="Consolas"
-                         FontSize="10"
-                         ScrollViewer.VerticalScrollBarVisibility="Visible"
-                         Text=""
-                         TextWrapping="NoWrap"
-                         VerticalScrollBarVisibility="Auto" />
+        </Button>
 
-            </DockPanel>
-        </Border>
+        <TextBox x:Name="txbxFeedback"
+                 Width="485"
+                 Height="19"
+                 Margin="290,50,0,0"
+                 Padding="3"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 BorderThickness="0"
+                 FontFamily="Consolas"
+                 FontSize="10"
+                 Text=""
+                 TextWrapping="NoWrap" />
 
-        <!--  BUTTON  -->
-        <Border x:Name="brdrGoButtonWidget"
-                Grid.Row="3"
-                BorderThickness="0">
-            <WrapPanel>
-                <Button x:Name="btnGo"
-                        Width="50"
-                        Margin="10"
-                        HorizontalAlignment="left"
-                        VerticalAlignment="Center"
-                        BorderBrush="#996600"
-                        BorderThickness="1"
-                        Click="btnGo_Click"
-                        Content="Go"
-                        Foreground="#E25822"
-                        IsEnabled="false">
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="2" />
-                        </Style>
-                    </Button.Resources>
-                    <Button.ToolTip>
-                        <StackPanel>
-                            <TextBlock Margin="0,0,0,5"
-                                       FontSize="18"
-                                       FontWeight="Bold"
-                                       Foreground="#996600">
-                                GO!
-                            </TextBlock>
-                            <TextBlock Margin="0,0,0,5"
-                                       FontSize="14">
-                                Create hash files!
-                            </TextBlock>
-                            <TextBlock Margin="0,0,0,5"
-                                       FontSize="12">
-                                Pressing this button creates hashes for files in the source folder.<LineBreak />
-                            </TextBlock>
-                            <Border Margin="0,8"
-                                    BorderBrush="#996600"
-                                    BorderThickness="0,2,0,0" />
-                            <TextBlock Margin="0,0,0,5"
-                                       HorizontalAlignment="Center"
-                                       FontSize="12">
-                                For more information, please see the Sobchak manual.
-                            </TextBlock>
-                        </StackPanel>
-                    </Button.ToolTip>
-                </Button>
-                <Border Width="700"
-                        Height="24"
-                        BorderBrush="#996600"
-                        BorderThickness="1">
-                    <Label x:Name="lblProgressBar"
-                           Width="0"
-                           HorizontalAlignment="Left"
-                           HorizontalContentAlignment="Right"
-                           VerticalContentAlignment="Center"
-                           Background="#00A6A6"
-                           Content="0"
-                           FontFamily="Consolas"
-                           FontSize="10"
-                           Foreground="#F2F7F2" />
-                </Border>
-            </WrapPanel>
-        </Border>
+        <Label x:Name="lblProgressBar"
+               Width="540"
+               Margin="235,74,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               HorizontalContentAlignment="Right"
+               VerticalContentAlignment="Center"
+               Background="#00A6A6"
+               Content="0"
+               FontFamily="Consolas"
+               FontSize="14"
+               Foreground="#F2F7F2">
+            <Label.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="2" />
+                </Style>
+            </Label.Resources>
+        </Label>
+        <Label x:Name="lblLogFileMessage"
+               Width="211"
+               Margin="565,97,0,0"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               HorizontalContentAlignment="Right"
+               Content="Log files are located in --sobchak-"
+               FontFamily="Consolas"
+               FontSize="8" />
     </Grid>
 </Window>
