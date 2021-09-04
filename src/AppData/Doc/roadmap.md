@@ -1,5 +1,17 @@
 ﻿# Sobchak: Roadmap
 
+Logo
+Ingnore list:
+    Sobchack.exe
+    Autorun.inf
+    ?
+Link to open log file with Notepad.exe
+Fix logfile text label
+Message when everything is ok
+Turn bar red if issue.
+Bar fills
+
+
 ## Non-Archiwizator
 * Fix button colors so they interact better
 * Show files when choosing a source

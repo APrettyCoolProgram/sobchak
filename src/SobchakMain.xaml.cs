@@ -1,17 +1,16 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 9-4-2021-12:18 PM
+ * UPDATED: 9-4-2021-4:47 PM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2021 A Pretty Cool Program All rights reserved
  */
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace Sobchak
@@ -29,103 +28,108 @@ namespace Sobchak
             SetupSobchak();
         }
 
-        /// <summary></summary>
+        /// <summary>Setup Sobchak.</summary>
         private void SetupSobchak()
         {
+            string sobchakVersion = $"Sobchak v{Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}";
 
-
-            Title                       = $"Sobchak v{Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}";
-            //Title                       = $"Sobchak v{Assembly.GetEntryAssembly().GetName().Version}";
+            Title                       = $"Sobchak v{sobchakVersion}";
             lblCurrentDirectory.Content = Directory.GetCurrentDirectory();
             lblLogFileMessage.Content   = "Log files located in ./sobchak/";
             lblProgressBar.Content      = "Click \"Verify\" to start";
         }
 
-        /// <summary></summary>
+        /// <summary>When the user clicks the Verify button.</summary>
         private void VerifyShas()
         {
             string currentDirectory = lblCurrentDirectory.Content.ToString();
 
-            var directory        = new DirectoryInfo(currentDirectory);
+            DirectoryInfo directory        = new DirectoryInfo(currentDirectory);
             FileInfo[] fileNames = directory.GetFiles();
 
+            List<string> fNames = new List<string>();
+
+            List<string> ignoredFiles = new List<string>()
+            {
+                "Sobchak.exe",
+                "autorun.inf"
+            };
+
+            foreach (FileInfo fileName in fileNames)
+            {
+                if (!ignoredFiles.Contains(fileName.Name))
+                {
+                    fNames.Add(fileName.Name);
+                }
+
+
+
+            }
 
             if (!Directory.Exists($"{currentDirectory}/.sobchak"))
             {
                 Directory.CreateDirectory($"{currentDirectory}/.sobchak");
             }
 
-            var dateStamp        = DateTime.Now.ToString("MM/dd/yyyy-HH:mm");
-
-            var logTextSeperator = $"============================={Environment.NewLine}Sobchak log: {dateStamp}{Environment.NewLine}============================={Environment.NewLine}";
+            string dateStamp        = DateTime.Now.ToString("MM/dd/yyyy-HH:mm");
+            string logTextSeperator = $"============================={Environment.NewLine}Sobchak log: {dateStamp}{Environment.NewLine}============================={Environment.NewLine}";
             File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", logTextSeperator);
 
-            VerifyHashes(currentDirectory, fileNames);
+            VerifyHashes(currentDirectory, fNames);
 
-            var logTextSeperator2 = $"{Environment.NewLine}";
+            string logTextSeperator2 = $"{Environment.NewLine}";
             File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", logTextSeperator2);
         }
 
-        /// <summary></summary>
-        /// <param name="currentDirectory"></param>
-        /// <param name="fileNames"></param>
-        private void VerifyHashes(string currentDirectory, FileInfo[] fileNames)
+        /// <summary>Verify SHA256 values.</summary>
+        /// <param name="currentDirectory">The directory that Sobchak was launched.</param>
+        /// <param name="fileNames">A list of filenames in the directory</param>
+        private void VerifyHashes(string currentDirectory, List<string> fNames)
         {
-            var fileCounter  = 1;
-            var feedbackText = "";
-            var invalidTotal = 0;
+            int fileCounter  = 1;
+            string feedbackText = "";
+            int invalidTotal = 0;
 
-            UpdateProgressBar(0, fileNames.Length - 1);
+            UpdateProgressBar(0, fNames.Count);
 
-            foreach (FileInfo fileName in fileNames)
+            foreach (string fName in fNames)
             {
-                if (fileName.Name != "Sobchak.exe")
+
+                var currentFileNumber = fNames.Count;
+
+                if (!File.Exists($"{currentDirectory}/.sobchak/{fName}.sobchak"))
                 {
-                    var currentFileNumber = fileNames.Length - 1;
+                    feedbackText = $"MISSING HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})...creating...";
+                    File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
 
-                    if (!File.Exists($"{currentDirectory}/.sobchak/{fileName.Name}.sobchak"))
+                    WriteHashValueAsContent(fName, $"{currentDirectory}/.sobchak/{fName}.sobchak");
+
+                    feedbackText = "complete.\n";
+                    File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
+                }
+                else
+                {
+                    string sobchakHash = File.ReadAllText($"{currentDirectory}/.sobchak/{fName}.sobchak");
+
+                    bool hashesAreEqual = FileMatchesSha256Value($"{currentDirectory}/{fName}", sobchakHash);
+
+                    if (hashesAreEqual)
                     {
-                        feedbackText = $"MISSING HASH: \"{fileName.Name}\" (File {fileCounter} of {currentFileNumber})...creating...";
+                        feedbackText = $"VALID HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})\n";
                         File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
-
-                        //RefreshFeedbackText(feedbackText);
-
-                        WriteHashValueAsContent(fileName.FullName, $"{currentDirectory}/.sobchak/{fileName.Name}.sobchak");
-
-                        feedbackText = "complete.\n";
-
-                        File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
-                        //RefreshFeedbackText(feedbackText);
                     }
                     else
                     {
-                        var sobchakHash = File.ReadAllText($"{currentDirectory}/.sobchak/{fileName.Name}.sobchak");
+                        feedbackText = $"INVALID HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})\n";
+                        File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
 
-                        var hashesAreEqual = FileMatchesSha256Value($"{currentDirectory}/{fileName.Name}", sobchakHash);
-
-                        if (hashesAreEqual)
-                        {
-                            feedbackText = $"VALID HASH: \"{fileName.Name}\" (File {fileCounter} of {currentFileNumber})\n";
-                            File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
-
-                            //RefreshFeedbackText(feedbackText);
-                        }
-                        else
-                        {
-                            feedbackText = $"INVALID HASH: \"{fileName.Name}\" (File {fileCounter} of {currentFileNumber})\n";
-                            File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
-
-
-                            //RefreshFeedbackText(feedbackText);
-                            invalidTotal++;
-                        }
+                        invalidTotal++;
                     }
-
-                    UpdateProgressBar(fileCounter, fileNames.Length - 1);
-
-                    fileCounter++;
                 }
 
+                UpdateProgressBar(fileCounter, fNames.Count);
+
+                fileCounter++;
             }
 
             if (invalidTotal != 0)
@@ -135,89 +139,25 @@ namespace Sobchak
         }
 
         /// <summary></summary>
-        /// <param name="sourcePath"></param>
-        /// <param name="fileNames"></param>
-        private void CreateHashes(string sourcePath, FileInfo[] fileNames)
-        {
-            var fileCounter = 1;
-            var feedbackText = "";
-
-            foreach(FileInfo fileName in fileNames)
-            {
-                ////feedbackText += $"Creating hash for file {fileCounter} of {fileNames.Length}: \"{fileName.Name}\"...";
-                ////File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
-
-                //RefreshFeedbackText(feedbackText);
-
-                ////WriteHashValueAsContent(fileName.FullName, $"{sourcePath}/.sobchak/{fileName.Name}.sobchak");
-
-                ////feedbackText += "complete.\n";
-                ////RefreshFeedbackText(feedbackText);
-
-                UpdateProgressBar(fileCounter, fileNames.Length);
-
-                fileCounter++;
-            }
-        }
-
-        /// <summary></summary>
         /// <param name="fileCounter"></param>
         /// <param name="numberOfFiles"></param>
         private void UpdateProgressBar(int fileCounter, int numberOfFiles)
         {
-            var prog = 710 / numberOfFiles;
+            int prog            = 710 / numberOfFiles;
+            decimal percentComplete = ((decimal)fileCounter/numberOfFiles) * 100;
 
-            var percentComplete = ((decimal)fileCounter/numberOfFiles) * 100;
-            //lblProgressBar.Width = (int)percentComplete * prog;
-            lblProgressBar.Width = fileCounter * prog;
-            //lblProgressBar.MaxWidth = 710;
+            lblProgressBar.Width   = fileCounter * prog;
             lblProgressBar.Content = $"{(int)percentComplete}%";
 
             RefreshContent(lblProgressBar);
         }
-
-
-
-        ///// <summary></summary>
-        ///// <param name="feedbackText"></param>
-        //private void RefreshFeedbackText(string feedbackText)
-        //{
-        //    txbxFeedback.Text = feedbackText;
-        //    RefreshContent(txbxFeedback);
-        //}
-
-        ///// <summary></summary>
-        //private void SourcePathChanged()
-        //{
-        //    if(txbxSourcePath.Text is not "")
-        //    {
-        //        if(Directory.Exists(txbxSourcePath.Text))
-        //        {
-        //            btnGo.Background = new SolidColorBrush(Color.FromArgb(100, 0, 166, 166));
-        //            btnGo.Foreground = new SolidColorBrush(Colors.Black);
-        //            btnGo.IsEnabled = true;
-        //        }
-        //        else
-        //        {
-        //            btnGo.Foreground = new SolidColorBrush(Color.FromArgb(100, 0, 166, 166));
-        //            btnGo.IsEnabled = false;
-        //        }
-        //    }
-        //}
-
-        /// <summary></summary>
-        //private void ChooseSource()
-        //{
-        //    txbxSourcePath.Text = GetFolderPath();
-        //}
-
 
         /// <summary>Get the SHA256 value of a file as a byte[].</summary>
         /// <param name="filePath">The file to get the SHA256 value of.</param>
         /// <returns>A SHA256 value as a byte[].</returns>
         private static byte[] GetHashAsBytes(string filePath)
         {
-            var workingHashValue = SHA256.Create();
+            SHA256 workingHashValue = SHA256.Create();
             byte[] hashAsBytes;
 
             using (FileStream stream = File.OpenRead(filePath))
@@ -233,8 +173,8 @@ namespace Sobchak
         /// <returns>A SHA256 value as a string.</returns>
         public static string GetHashAsString(string filePath)
         {
-            var hashAsBytes  = GetHashAsBytes(filePath);
-            var hashAsString = ConvertHashToString(hashAsBytes);
+            byte[] hashAsBytes  = GetHashAsBytes(filePath);
+            string hashAsString = ConvertHashToString(hashAsBytes);
 
             return hashAsString;
         }
@@ -244,9 +184,9 @@ namespace Sobchak
         /// <returns>A SHA256 hash as a string.</returns>
         public static string ConvertHashToString(byte[] hashAsBytes)
         {
-            var hashAsString = "";
+            string hashAsString = "";
 
-            for (var currentBit = 0; currentBit < hashAsBytes.Length; currentBit++)
+            for (int currentBit = 0; currentBit < hashAsBytes.Length; currentBit++)
             {
                 hashAsString += $"{hashAsBytes[currentBit]:X2}";
 
