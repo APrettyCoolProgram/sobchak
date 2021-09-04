@@ -1,19 +1,22 @@
 ﻿# Sobchak: Changelog
 
+## Version 0.99
+> Release Candidate 2
+
+#### v0.99.21247.1620 (2021-09-04)
+* `INFO` Release candidate 2
 
 ## Version 0.9
-> Release Candidate
+> Release Candidate 1
 
-#### v0.9. (2021-08-26)
+#### v0.9.21238.1644 (2021-08-26)
 * `INFO` Removed the Du project, integrated code directly into Sobchak project
 
-
-## Version 0.8.x.x
+## Version 0.8
 > Additional functionality to be added
 
 #### v0.8.21026.2042 (2021-05-13)
 * `ADDED` SetupMainWindow.cs
-
 
 ## Version 0.7rc1
 > Release candidate 1

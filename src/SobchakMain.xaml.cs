@@ -1,6 +1,6 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 8-26-2021-12:44 PM
+ * UPDATED: 9-4-2021-12:18 PM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2021 A Pretty Cool Program All rights reserved
  */
@@ -32,11 +32,13 @@ namespace Sobchak
         /// <summary></summary>
         private void SetupSobchak()
         {
-            Title = $"Sobchak v{Assembly.GetEntryAssembly().GetName().Version}";
 
+
+            Title                       = $"Sobchak v{Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}";
+            //Title                       = $"Sobchak v{Assembly.GetEntryAssembly().GetName().Version}";
             lblCurrentDirectory.Content = Directory.GetCurrentDirectory();
-
-            lblLogFileMessage.Content = "Log files located in ./sobchak/";
+            lblLogFileMessage.Content   = "Log files located in ./sobchak/";
+            lblProgressBar.Content      = "Click \"Verify\" to start";
         }
 
         /// <summary></summary>
@@ -44,8 +46,7 @@ namespace Sobchak
         {
             string currentDirectory = lblCurrentDirectory.Content.ToString();
 
-            var directory = new DirectoryInfo(currentDirectory);
-
+            var directory        = new DirectoryInfo(currentDirectory);
             FileInfo[] fileNames = directory.GetFiles();
 
 
@@ -54,81 +55,84 @@ namespace Sobchak
                 Directory.CreateDirectory($"{currentDirectory}/.sobchak");
             }
 
+            var dateStamp        = DateTime.Now.ToString("MM/dd/yyyy-HH:mm");
+
+            var logTextSeperator = $"============================={Environment.NewLine}Sobchak log: {dateStamp}{Environment.NewLine}============================={Environment.NewLine}";
+            File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", logTextSeperator);
+
             VerifyHashes(currentDirectory, fileNames);
 
-            //if(rbtnCreate.IsChecked is true)
-            //{
-            //    CreateHashes(sourcePath, fileNames);
-            //}
-
-            //if(rbtnVerify.IsChecked is true)
-            //{
-            //    VerifyHashes(sourcePath, fileNames);
-            //}
+            var logTextSeperator2 = $"{Environment.NewLine}";
+            File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", logTextSeperator2);
         }
-
 
         /// <summary></summary>
         /// <param name="currentDirectory"></param>
         /// <param name="fileNames"></param>
         private void VerifyHashes(string currentDirectory, FileInfo[] fileNames)
         {
-            var fileCounter = 1;
+            var fileCounter  = 1;
             var feedbackText = "";
-
             var invalidTotal = 0;
+
+            UpdateProgressBar(0, fileNames.Length - 1);
 
             foreach (FileInfo fileName in fileNames)
             {
-                if (!File.Exists($"{currentDirectory}/.sobchak/{fileName.Name}.sobchak"))
+                if (fileName.Name != "Sobchak.exe")
                 {
-                    feedbackText += $"MISSING HASH: \"{fileName.Name}\" (File {fileCounter} of {fileNames.Length})...creating...";
-                    RefreshFeedbackText(feedbackText);
+                    var currentFileNumber = fileNames.Length - 1;
 
-                    WriteHashValueAsContent(fileName.FullName, $"{currentDirectory}/.sobchak/{fileName.Name}.sobchak");
-
-                    feedbackText += "complete.\n";
-                    RefreshFeedbackText(feedbackText);
-                }
-                else
-                {
-                    var sobchakHash = File.ReadAllText($"{currentDirectory}/.sobchak/{fileName.Name}.sobchak");
-
-                    var hashesAreEqual = FileMatchesSha256Value($"{currentDirectory}/{fileName.Name}", sobchakHash);
-
-                    if (hashesAreEqual)
+                    if (!File.Exists($"{currentDirectory}/.sobchak/{fileName.Name}.sobchak"))
                     {
-                        feedbackText += $"VALID HASH: \"{fileName.Name}\" (File {fileCounter} of {fileNames.Length})\n";
-                        RefreshFeedbackText(feedbackText);
+                        feedbackText = $"MISSING HASH: \"{fileName.Name}\" (File {fileCounter} of {currentFileNumber})...creating...";
+                        File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
+
+                        //RefreshFeedbackText(feedbackText);
+
+                        WriteHashValueAsContent(fileName.FullName, $"{currentDirectory}/.sobchak/{fileName.Name}.sobchak");
+
+                        feedbackText = "complete.\n";
+
+                        File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
+                        //RefreshFeedbackText(feedbackText);
                     }
                     else
                     {
-                        feedbackText += $"INVALID HASH: \"{fileName.Name}\" (File {fileCounter} of {fileNames.Length})\n";
-                        RefreshFeedbackText(feedbackText);
-                        invalidTotal++;
+                        var sobchakHash = File.ReadAllText($"{currentDirectory}/.sobchak/{fileName.Name}.sobchak");
+
+                        var hashesAreEqual = FileMatchesSha256Value($"{currentDirectory}/{fileName.Name}", sobchakHash);
+
+                        if (hashesAreEqual)
+                        {
+                            feedbackText = $"VALID HASH: \"{fileName.Name}\" (File {fileCounter} of {currentFileNumber})\n";
+                            File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
+
+                            //RefreshFeedbackText(feedbackText);
+                        }
+                        else
+                        {
+                            feedbackText = $"INVALID HASH: \"{fileName.Name}\" (File {fileCounter} of {currentFileNumber})\n";
+                            File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
+
+
+                            //RefreshFeedbackText(feedbackText);
+                            invalidTotal++;
+                        }
                     }
+
+                    UpdateProgressBar(fileCounter, fileNames.Length - 1);
+
+                    fileCounter++;
                 }
 
-                UpdateProgressBar(fileCounter, fileNames.Length);
-
-                fileCounter++;
             }
 
             if (invalidTotal != 0)
             {
-                MessageBoxResult errMsg = MessageBox.Show("There are invalid hashes!", "INVALID HASHES FOUND!", MessageBoxButton.OK);
+                MessageBoxResult errMsg = MessageBox.Show($"There are {invalidTotal} invalid hashes!{Environment.NewLine}{Environment.NewLine}Please see ./sobchak/sobchak.log for details.", "INVALID HASHES FOUND!", MessageBoxButton.OK);
             }
         }
-
-
-
-
-
-
-
-
-
-
 
         /// <summary></summary>
         /// <param name="sourcePath"></param>
@@ -140,13 +144,15 @@ namespace Sobchak
 
             foreach(FileInfo fileName in fileNames)
             {
-                feedbackText += $"Creating hash for file {fileCounter} of {fileNames.Length}: \"{fileName.Name}\"...";
-                RefreshFeedbackText(feedbackText);
+                ////feedbackText += $"Creating hash for file {fileCounter} of {fileNames.Length}: \"{fileName.Name}\"...";
+                ////File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
 
-                WriteHashValueAsContent(fileName.FullName, $"{sourcePath}/.sobchak/{fileName.Name}.sobchak");
+                //RefreshFeedbackText(feedbackText);
 
-                feedbackText += "complete.\n";
-                RefreshFeedbackText(feedbackText);
+                ////WriteHashValueAsContent(fileName.FullName, $"{sourcePath}/.sobchak/{fileName.Name}.sobchak");
+
+                ////feedbackText += "complete.\n";
+                ////RefreshFeedbackText(feedbackText);
 
                 UpdateProgressBar(fileCounter, fileNames.Length);
 
@@ -155,24 +161,30 @@ namespace Sobchak
         }
 
         /// <summary></summary>
-        /// <param name="fileCoutner"></param>
+        /// <param name="fileCounter"></param>
         /// <param name="numberOfFiles"></param>
-        private void UpdateProgressBar(int fileCoutner, int numberOfFiles)
+        private void UpdateProgressBar(int fileCounter, int numberOfFiles)
         {
-            var percentComplete = ((decimal)fileCoutner /numberOfFiles) * 100;
-            lblProgressBar.Width = (int)percentComplete * 7;
+            var prog = 710 / numberOfFiles;
+
+            var percentComplete = ((decimal)fileCounter/numberOfFiles) * 100;
+            //lblProgressBar.Width = (int)percentComplete * prog;
+            lblProgressBar.Width = fileCounter * prog;
+            //lblProgressBar.MaxWidth = 710;
             lblProgressBar.Content = $"{(int)percentComplete}%";
+
+            RefreshContent(lblProgressBar);
         }
 
 
 
-        /// <summary></summary>
-        /// <param name="feedbackText"></param>
-        private void RefreshFeedbackText(string feedbackText)
-        {
-            txbxFeedback.Text = feedbackText;
-            RefreshContent(txbxFeedback);
-        }
+        ///// <summary></summary>
+        ///// <param name="feedbackText"></param>
+        //private void RefreshFeedbackText(string feedbackText)
+        //{
+        //    txbxFeedback.Text = feedbackText;
+        //    RefreshContent(txbxFeedback);
+        //}
 
         ///// <summary></summary>
         //private void SourcePathChanged()
@@ -273,22 +285,10 @@ namespace Sobchak
             File.WriteAllText(pathToSave, GetHashAsString(fileToCalculate));
         }
 
-
-
-        public static void RefreshContent(TextBox textBoxToRefresh)
+        public static void RefreshContent(Label labelToRefresh)
         {
-            _ = textBoxToRefresh.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
+            _ = labelToRefresh.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
         }
-
-
-
-
-
-
-
-
-
-
 
         // EVENT HANDLERS
         private void btnVerify_Click(object sender, RoutedEventArgs e) => VerifyShas();
