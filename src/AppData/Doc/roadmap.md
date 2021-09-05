@@ -5,11 +5,8 @@ Ingnore list:
     Sobchack.exe
     Autorun.inf
     ?
-Link to open log file with Notepad.exe
-Fix logfile text label
-Message when everything is ok
-Turn bar red if issue.
-Bar fills
+Status bar color for missing hashes
+Log file is created with the directory name
 
 
 ## Non-Archiwizator

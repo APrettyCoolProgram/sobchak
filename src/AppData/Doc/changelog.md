@@ -3,6 +3,11 @@
 ## Version 0.99
 > Release Candidate 2
 
+#### v0.99.21248.1836 (2021-09-05)
+* `ADDED` Status updates so the user knows what file is being worked on
+* `ADDED` Message at completion, either success or failure
+* `ADDED` Status bar turns red if there are invalid hashes
+
 #### v0.99.21247.2047 (2021-09-04)
 * `INFO` Code and comment cleanup
 

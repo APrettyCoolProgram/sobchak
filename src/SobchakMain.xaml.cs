@@ -1,6 +1,6 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 9-4-2021-4:47 PM
+ * UPDATED: 9-5-2021-2:36 PM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2021 A Pretty Cool Program All rights reserved
  */
@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Sobchak
@@ -36,7 +37,7 @@ namespace Sobchak
             Title                       = $"Sobchak v{sobchakVersion}";
             lblCurrentDirectory.Content = Directory.GetCurrentDirectory();
             lblLogFileMessage.Content   = "Log files located in ./sobchak/";
-            lblProgressBar.Content      = "Click \"Verify\" to start";
+            //lblProgressBar.Content      = "Click \"Verify\" to start";
         }
 
         /// <summary>When the user clicks the Verify button.</summary>
@@ -61,9 +62,6 @@ namespace Sobchak
                 {
                     fNames.Add(fileName.Name);
                 }
-
-
-
             }
 
             if (!Directory.Exists($"{currentDirectory}/.sobchak"))
@@ -90,22 +88,25 @@ namespace Sobchak
             string feedbackText = "";
             int invalidTotal = 0;
 
+            lblProgressBar.Foreground = Brushes.White;
+
             UpdateProgressBar(0, fNames.Count);
 
             foreach (string fName in fNames)
             {
-
                 var currentFileNumber = fNames.Count;
 
                 if (!File.Exists($"{currentDirectory}/.sobchak/{fName}.sobchak"))
                 {
                     feedbackText = $"MISSING HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})...creating...";
                     File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
+                    UpdateProgressStatus(feedbackText);
 
                     WriteHashValueAsContent(fName, $"{currentDirectory}/.sobchak/{fName}.sobchak");
 
                     feedbackText = "complete.\n";
                     File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
+                    UpdateProgressStatus(feedbackText);
                 }
                 else
                 {
@@ -117,24 +118,36 @@ namespace Sobchak
                     {
                         feedbackText = $"VALID HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})\n";
                         File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
+                        UpdateProgressStatus(feedbackText);
                     }
                     else
                     {
                         feedbackText = $"INVALID HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})\n";
                         File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
+                        UpdateProgressStatus(feedbackText);
 
                         invalidTotal++;
+
+                        lblProgressBar.Background = Brushes.Salmon;
+                        lblProgressBar.Foreground = Brushes.Black;
                     }
                 }
 
                 UpdateProgressBar(fileCounter, fNames.Count);
+                UpdateProgressStatus(feedbackText);
 
                 fileCounter++;
             }
 
             if (invalidTotal != 0)
             {
-                MessageBoxResult errMsg = MessageBox.Show($"There are {invalidTotal} invalid hashes!{Environment.NewLine}{Environment.NewLine}Please see ./sobchak/sobchak.log for details.", "INVALID HASHES FOUND!", MessageBoxButton.OK);
+                feedbackText = $"There are {invalidTotal} invalid hashes! Please see ./sobchak/sobchak.log for details.";
+                UpdateProgressStatus(feedbackText);
+            }
+            else
+            {
+                feedbackText = $"Complete, no issues found!.";
+                UpdateProgressStatus(feedbackText);
             }
         }
 
@@ -143,13 +156,21 @@ namespace Sobchak
         /// <param name="numberOfFiles"></param>
         private void UpdateProgressBar(int fileCounter, int numberOfFiles)
         {
-            int prog            = 710 / numberOfFiles;
+            int prog                = 765 / numberOfFiles;
             decimal percentComplete = ((decimal)fileCounter/numberOfFiles) * 100;
 
             lblProgressBar.Width   = fileCounter * prog;
             lblProgressBar.Content = $"{(int)percentComplete}%";
 
             RefreshContent(lblProgressBar);
+        }
+
+        private void UpdateProgressStatus(string feedbackText)
+        {
+
+            lblProgressStatus.Content = feedbackText;
+
+            RefreshContent(lblProgressStatus);
         }
 
         /// <summary>Get the SHA256 value of a file as a byte[].</summary>
