@@ -3,6 +3,9 @@
 ## Version 0.99
 > Release Candidate 2
 
+#### v0.99.21248.1848 (2021-09-05)
+* `FIXED` Progress bar was not displaying correctly
+
 #### v0.99.21248.1836 (2021-09-05)
 * `ADDED` Status updates so the user knows what file is being worked on
 * `ADDED` Message at completion, either success or failure

@@ -8,7 +8,6 @@ Ingnore list:
 Status bar color for missing hashes
 Log file is created with the directory name
 
-
 ## Non-Archiwizator
 * Fix button colors so they interact better
 * Show files when choosing a source

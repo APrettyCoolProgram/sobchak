@@ -1,6 +1,6 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 9-5-2021-2:36 PM
+ * UPDATED: 9-5-2021-2:45 PM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2021 A Pretty Cool Program All rights reserved
  */
@@ -85,16 +85,21 @@ namespace Sobchak
         private void VerifyHashes(string currentDirectory, List<string> fNames)
         {
             int fileCounter  = 1;
-            string feedbackText = "";
+            string feedbackText = "Starting verification...";
             int invalidTotal = 0;
 
+            lblProgressBar.Background = Brushes.Teal;
             lblProgressBar.Foreground = Brushes.White;
 
             UpdateProgressBar(0, fNames.Count);
+            UpdateProgressStatus(feedbackText);
 
             foreach (string fName in fNames)
             {
                 var currentFileNumber = fNames.Count;
+
+                feedbackText = $"VERIFYING HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})\n";
+                UpdateProgressStatus(feedbackText);
 
                 if (!File.Exists($"{currentDirectory}/.sobchak/{fName}.sobchak"))
                 {
@@ -110,6 +115,9 @@ namespace Sobchak
                 }
                 else
                 {
+                    //feedbackText = $"VERIFYING HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})\n";
+                    //UpdateProgressStatus(feedbackText);
+
                     string sobchakHash = File.ReadAllText($"{currentDirectory}/.sobchak/{fName}.sobchak");
 
                     bool hashesAreEqual = FileMatchesSha256Value($"{currentDirectory}/{fName}", sobchakHash);
