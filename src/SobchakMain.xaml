@@ -21,8 +21,8 @@
         mc:Ignorable="d">
     <Grid>
         <Label x:Name="lblCurrentDirectory"
-               Width="765"
-               Margin="10,20,0,0"
+               Width="710"
+               Margin="65,20,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
                VerticalContentAlignment="Top"
@@ -41,7 +41,7 @@
         <Button x:Name="btnVerify"
                 Width="50"
                 Height="26"
-                Margin="10,49,0,0"
+                Margin="10,19,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 BorderBrush="#996600"
@@ -58,22 +58,21 @@
         </Button>
 
         <Border x:Name="brdrProgressBar"
-                Width="710"
-                Margin="65,49,0,0"
+                Width="765"
+                Margin="10,49,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 BorderBrush="Black"
                 BorderThickness="1">
             <Label x:Name="lblProgressBar"
                    MinWidth="50"
-                   MaxWidth="710"
+                   MaxWidth="765"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   Background="#00A6A6"
                    Content="0%"
                    FontFamily="Consolas"
                    FontSize="14"
-                   Foreground="#F2F7F2">
+                   Foreground="Teal">
                 <Label.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="2" />
@@ -86,14 +85,14 @@
                 </Style>
             </Border.Resources>
         </Border>
-        <Label x:Name="lblLogFileMessage"
-               Width="211"
-               Margin="564,80,0,0"
+        <Label x:Name="lblProgressStatus"
+               Width="765"
+               Margin="10,77,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
-               HorizontalContentAlignment="Right"
-               Content="Log files are located in --sobchak-"
+               HorizontalContentAlignment="Left"
+               Content="Click the Verify button to start."
                FontFamily="Consolas"
-               FontSize="8" />
+               FontSize="12" />
     </Grid>
 </Window>

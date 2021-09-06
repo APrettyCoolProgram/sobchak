@@ -1,7 +1,28 @@
 ﻿# Sobchak: Changelog
 
 ## Version 0.99
-> Release Candidate 2
+> Release Candidates
+
+#### v0.99.21249.1524 (2021-09-06)
+* `INFO` Release candidate 3
+* `FIXED` Issue where clicking on the Verify button would queue up multiple executions
+
+#### v0.99.21249.1524 (2021-09-06)
+* `ADDED` Application icon
+* `ADDED` Progress bar turns orange if there are missing hash values
+* `ADDED` Verify button is disabled while Sobchak is verifying hashes
+* `REMOVED` Text detailing where the log files are located (now included in completion message)
+
+#### v0.99.21248.1848 (2021-09-05)
+* `FIXED` Progress bar was not displaying correctly
+
+#### v0.99.21248.1836 (2021-09-05)
+* `ADDED` Status updates so the user knows what file is being worked on
+* `ADDED` Message at completion, either success or failure
+* `ADDED` Status bar turns red if there are invalid hashes
+
+#### v0.99.21247.2047 (2021-09-04)
+* `INFO` Code and comment cleanup
 
 #### v0.99.21247.1620 (2021-09-04)
 * `INFO` Release candidate 2

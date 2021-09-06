@@ -1,5 +1,14 @@
 ﻿# Sobchak: Roadmap
 
+Optional config file:
+    Ingnore list:
+        Sobchack.exe
+        Autorun.inf
+        ?
+Progress bar goes left to right
+Progress bar fills
+Log file is created with the directory name
+
 ## Non-Archiwizator
 * Fix button colors so they interact better
 * Show files when choosing a source
