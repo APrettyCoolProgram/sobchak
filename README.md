@@ -1,4 +1,6 @@
 # Sobchak
 Verify SHA256 hashes.
 
-Current release: 0.99rc2
+Current release: v0.99.21249.1524-rc3
+
+Documentation coming soon, but it works.
