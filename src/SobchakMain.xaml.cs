@@ -1,6 +1,6 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 9-5-2021-2:45 PM
+ * UPDATED: 9-6-2021-11:24 AM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2021 A Pretty Cool Program All rights reserved
  */
@@ -36,8 +36,6 @@ namespace Sobchak
 
             Title                       = $"Sobchak v{sobchakVersion}";
             lblCurrentDirectory.Content = Directory.GetCurrentDirectory();
-            lblLogFileMessage.Content   = "Log files located in ./sobchak/";
-            //lblProgressBar.Content      = "Click \"Verify\" to start";
         }
 
         /// <summary>When the user clicks the Verify button.</summary>
@@ -91,6 +89,8 @@ namespace Sobchak
             lblProgressBar.Background = Brushes.Teal;
             lblProgressBar.Foreground = Brushes.White;
 
+            btnVerify.IsEnabled = false;
+
             UpdateProgressBar(0, fNames.Count);
             UpdateProgressStatus(feedbackText);
 
@@ -103,6 +103,8 @@ namespace Sobchak
 
                 if (!File.Exists($"{currentDirectory}/.sobchak/{fName}.sobchak"))
                 {
+                    lblProgressBar.Background = Brushes.Orange;
+
                     feedbackText = $"MISSING HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})...creating...";
                     File.AppendAllText($"{currentDirectory}/.sobchak/sobchak.log", feedbackText);
                     UpdateProgressStatus(feedbackText);
@@ -115,9 +117,6 @@ namespace Sobchak
                 }
                 else
                 {
-                    //feedbackText = $"VERIFYING HASH: \"{fName}\" (File {fileCounter} of {currentFileNumber})\n";
-                    //UpdateProgressStatus(feedbackText);
-
                     string sobchakHash = File.ReadAllText($"{currentDirectory}/.sobchak/{fName}.sobchak");
 
                     bool hashesAreEqual = FileMatchesSha256Value($"{currentDirectory}/{fName}", sobchakHash);
@@ -149,14 +148,25 @@ namespace Sobchak
 
             if (invalidTotal != 0)
             {
-                feedbackText = $"There are {invalidTotal} invalid hashes! Please see ./sobchak/sobchak.log for details.";
+                feedbackText = $"Process complete: there are {invalidTotal} invalid hashes! Please see ./sobchak/sobchak.log for details.";
                 UpdateProgressStatus(feedbackText);
             }
             else
             {
-                feedbackText = $"Complete, no issues found!.";
-                UpdateProgressStatus(feedbackText);
+                if (lblProgressBar.Background == Brushes.Orange)
+                {
+                    feedbackText = $"Process complete: missing hashes created. Please see ./sobchak/sobchak.log for details.";
+                    UpdateProgressStatus(feedbackText);
+                }
+                else
+                {
+                    feedbackText = $"Process complete: all hashes match. Please see ./sobchak/sobchak.log for details.";
+                    UpdateProgressStatus(feedbackText);
+                }
+
             }
+
+            btnVerify.IsEnabled = true;
         }
 
         /// <summary></summary>
@@ -175,7 +185,6 @@ namespace Sobchak
 
         private void UpdateProgressStatus(string feedbackText)
         {
-
             lblProgressStatus.Content = feedbackText;
 
             RefreshContent(lblProgressStatus);

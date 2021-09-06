@@ -1,7 +1,14 @@
 ﻿# Sobchak: Changelog
 
 ## Version 0.99
-> Release Candidate 2
+> Release Candidates
+
+#### v0.99.21249.1524 (2021-09-06)
+* `INFO` Release candidate 3
+* `ADDED` Application icon
+* `ADDED` Progress bar turns orange if there are missing hash values
+* `ADDED` Verify button is disabled while Sobchak is verifying hashes
+* `REMOVED` Text detailing where the log files are located (now included in completion message)
 
 #### v0.99.21248.1848 (2021-09-05)
 * `FIXED` Progress bar was not displaying correctly

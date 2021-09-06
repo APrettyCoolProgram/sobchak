@@ -85,17 +85,8 @@
                 </Style>
             </Border.Resources>
         </Border>
-        <Label x:Name="lblLogFileMessage"
-               Width="175"
-               Margin="600,77,0,0"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               HorizontalContentAlignment="Right"
-               Content="Log files are located in --sobchak-"
-               FontFamily="Consolas"
-               FontSize="8" />
         <Label x:Name="lblProgressStatus"
-               Width="575"
+               Width="765"
                Margin="10,77,0,0"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
