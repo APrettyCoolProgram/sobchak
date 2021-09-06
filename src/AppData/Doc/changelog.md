@@ -5,6 +5,9 @@
 
 #### v0.99.21249.1524 (2021-09-06)
 * `INFO` Release candidate 3
+* `FIXED` Issue where clicking on the Verify button would queue up multiple executions
+
+#### v0.99.21249.1524 (2021-09-06)
 * `ADDED` Application icon
 * `ADDED` Progress bar turns orange if there are missing hash values
 * `ADDED` Verify button is disabled while Sobchak is verifying hashes

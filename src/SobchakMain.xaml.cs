@@ -1,6 +1,6 @@
 ﻿/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
  *    FILE: Sobchak.SobchakMain.xaml.cs
- * UPDATED: 9-6-2021-11:24 AM
+ * UPDATED: 9-6-2021-11:35 AM
  * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
  *          Copyright 2021 A Pretty Cool Program All rights reserved
  */
@@ -34,7 +34,7 @@ namespace Sobchak
         {
             string sobchakVersion = $"Sobchak v{Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}";
 
-            Title                       = $"Sobchak v{sobchakVersion}";
+            Title                       = $"Sobchak v{sobchakVersion}-rc3";
             lblCurrentDirectory.Content = Directory.GetCurrentDirectory();
         }
 
@@ -269,6 +269,12 @@ namespace Sobchak
         }
 
         // EVENT HANDLERS
-        private void btnVerify_Click(object sender, RoutedEventArgs e) => VerifyShas();
+        private void btnVerify_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnVerify.IsEnabled)
+            {
+                VerifyShas();
+            }
+        }
     }
 }
