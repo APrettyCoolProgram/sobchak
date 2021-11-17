@@ -1,3 +1,9 @@
+/* PROJECT: Sobchak (https://github.com/aprettycoolprogram/Sobchak)
+ *    FILE: %Namespace%.AssemblyInfo.cs
+ * UPDATED: 11-17-2021-9:40 AM
+ * LICENSE: Apache v2 (https://apache.org/licenses/LICENSE-2.0)
+ *          Copyright 2021 A Pretty Cool Program All rights reserved
+ */
 using System.Windows;
 
 [assembly: ThemeInfo(
