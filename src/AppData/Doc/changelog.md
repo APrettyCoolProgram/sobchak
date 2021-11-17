@@ -1,5 +1,11 @@
 ﻿# Sobchak: Changelog
 
+## Version 1.0
+> Version 1.0 release
+
+#### v1.0.21321.1440 (2021-11-17)
+* `INFO` Version 1.0 release
+
 ## Version 0.99
 > Release Candidates
 
