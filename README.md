@@ -1,8 +1,9 @@
 # Sobchak
 
-Create/verify SHA256 hashes for all files in a directory.
+Sobchak is a simple little application that creates and/or verifies SHA256 hashes for all files in a directory. If a hash exists for a file
 
-Development of [Sobchak v2](https://github.com/APrettyCoolProgram/Sobchak/tree/development) is underway.
+## Version 1.0 (current release)
+Built using .NET Core 5 w/WPF, this version is only compatible with Microsoft Windows.
 
 ### Sobhack v1.0 requirements
 
@@ -16,3 +17,6 @@ Development of [Sobchak v2](https://github.com/APrettyCoolProgram/Sobchak/tree/d
 3. Click the `Verify` button
 
 Once Sobchak has completed, you can find the SHA256 hashes, and a log file, in `/.sobchak`
+
+## Version 2.0 (in development)
+Built using .NET Core 6, this version is compatible with Microsoft Windows, MacOS, and Linux.
