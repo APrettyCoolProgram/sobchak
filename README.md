@@ -5,6 +5,8 @@ Sobchak is a simple little application that creates and/or verifies SHA256 hashe
 ## Version 1.0 (current release)
 Built using .NET Core 5 w/WPF, this version is only compatible with Microsoft Windows.
 
+Sourcode [here](dev/v1.0/).
+
 ### Sobhack v1.0 requirements
 
 * Microsoft Windows
