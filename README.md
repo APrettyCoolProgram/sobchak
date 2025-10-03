@@ -1,10 +1,10 @@
+> This is v1.0 of Sobchak, and has been depreciated.
+
 # Sobchak
 
 Create/verify SHA256 hashes for all files in a directory.
 
-Development of [Sobchak v2](https://github.com/APrettyCoolProgram/Sobchak/tree/development) is underway.
-
-### Sobhack v1.0 requirements
+### Requirements
 
 * Microsoft Windows
 * .NET Core 5+
