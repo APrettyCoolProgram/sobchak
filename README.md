@@ -8,6 +8,8 @@
     <img alt="Fallback image description" src="https://github.com/APrettyCoolProgram/sobchak/blob/main/.github/img/logo/sobchak-light-587x363.png">
   </picture>
 
-  <h1>Sobchak</h1>
-
 </div>
+
+***
+
+Development of v2.0
