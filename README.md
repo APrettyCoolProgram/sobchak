@@ -1,18 +1,11 @@
-> This is v1.0 of Sobchak, and has been depreciated.
+<!-- u251003-->
 
-# Sobchak
+<div align="center">
 
-Create/verify SHA256 hashes for all files in a directory.
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/spectrum-health-systems/tingen-projects/blob/main/logos/tngndocs-dark-400x63.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/spectrum-health-systems/tingen-projects/blob/main/logos/tngndocs-light-400x63.png">
+    <img alt="Fallback image description" src="https://github.com/spectrum-health-systems/tingen-projects/blob/main/logos/tngndocs-light-400x63.png">
+  </picture>
 
-### Requirements
-
-* Microsoft Windows
-* .NET Core 5+
-
-### How to use
-
-1. Put the `Sobchak.exe` file in a folder
-2. Double-click `Sobchak.exe`
-3. Click the `Verify` button
-
-Once Sobchak has completed, you can find the SHA256 hashes, and a log file, in `/.sobchak`
+</div>
