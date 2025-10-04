@@ -14,4 +14,4 @@
 
 ***
 
-Development of v2.0
+You're looking for [this](https://github.com/APrettyCoolProgram/sobchak/tree/v1.0-final).
