@@ -13,5 +13,3 @@
 </div>
 
 ***
-
-You're looking for [this](https://github.com/APrettyCoolProgram/sobchak/tree/v1.0-final).
