@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Sobchak")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c21c99326dd58fcd27f8bef2bdce7a47461d62b5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Sobchak")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Sobchak")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
