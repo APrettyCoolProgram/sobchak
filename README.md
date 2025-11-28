@@ -1,4 +1,4 @@
-<!-- u251003-->
+<!-- u251128-->
 
 ***
 
@@ -12,8 +12,8 @@
 
 </div>
 
-***
+> The original Salnicker application can be found [here](https://github.com/APrettyCoolProgram/sobchak/tree/v1.0-final)
 
-Sobchak has been depreciated, and most of the functionality/code has been moved to [Woolpack](https://github.com/APrettyCoolProgram/wollpack/tree/main).
+# Sobchak
 
-You can find Sobchak v1.0 [here](https://github.com/APrettyCoolProgram/sobchak/tree/v1.0-final).
+Sobchak is a class library that creates SHA hashes for files.
